@@ -1,0 +1,17 @@
+// Mocks/MockHymns.json
+[
+  {
+    "id": "1",
+    "title": "Amazing Grace",
+    "number": 101,
+    "hymn_book_id": "1",
+    "variant_key": null,
+    "content": {
+      "verses": [
+        {"order": 1, "text": "Amazing grace! How sweet the sound..."},
+        {"order": 2, "text": "Through many dangers, toils and snares..."}
+      ],
+      "chorus": {"text": "Chorus text here..."}
+    }
+  }
+]

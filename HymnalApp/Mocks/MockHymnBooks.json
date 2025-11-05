@@ -1,0 +1,13 @@
+// Mocks/MockHymnBooks.json
+[
+  {
+    "id": "1",
+    "title": "Classic Hymns",
+    "thumbnail_path": "/thumbnails/classic.jpg"
+  },
+  {
+    "id": "2",
+    "title": "Modern Worship",
+    "thumbnail_path": null
+  }
+]

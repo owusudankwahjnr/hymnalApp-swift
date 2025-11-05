@@ -1,0 +1,11 @@
+// Mocks/MockHymnVariants.json
+[
+  {
+    "id": "2",
+    "title": "Amazing Grace (Variant)",
+    "number": 101,
+    "hymn_book_id": "2",
+    "hymn_book_title": "Modern Worship",
+    "variant_key": "modern"
+  }
+]

@@ -1,0 +1,19 @@
+// Mocks/MockHymnSummaries.json
+[
+  {
+    "id": "1",
+    "title": "Amazing Grace",
+    "number": 101,
+    "hymn_book_id": "1",
+    "hymn_book_title": "Classic Hymns",
+    "variant_key": null
+  },
+  {
+    "id": "2",
+    "title": "How Great Thou Art",
+    "number": 102,
+    "hymn_book_id": "1",
+    "hymn_book_title": "Classic Hymns",
+    "variant_key": "alt"
+  }
+]
