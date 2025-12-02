@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "hymnal-app-rn",
+    "slug": "hymnal-app-rn",
+    "version": "1.0.0",
+    "scheme": "hymnalapp",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.owusudankwah.hymnalapprn",
+      "appleTeamId": "42XUTKFJYX",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.owusudankwahjnr.hymnalapprn"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "90c1733a-2a2f-4a1f-9efd-c6b43ad3db43"
+      }
+    }
+  }
+}

@@ -1,0 +1,1879 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Hymnal API",
+    "description": "A FastAPI-based API for managing hymn books and hymns, with admin user management and search functionality.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/user_management/register": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Register a new user",
+        "description": "Register a new user in the system.\n- **user**: User creation details (username, email, password, etc.).\n- Requires authentication and `create_user` permission.\n- Superusers can set `is_super_user=true`; others cannot.",
+        "operationId": "register_user_api_v1_user_management_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The created user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user_management/login": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "User login",
+        "description": "Authenticate a user and issue a JWT token.\n- **form_data**: Username and password.\n- Returns a bearer token valid for 30 minutes.\n- If 2FA is enabled, verification may be required (currently optional).",
+        "operationId": "login_for_access_token_api_v1_user_management_login_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_for_access_token_api_v1_user_management_login_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "JWT token for authenticated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/2fa/setup": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Set up 2FA for a user",
+        "description": "Set up two-factor authentication for the authenticated user.\n- Returns a TOTP secret to be used with an authenticator app.\n- Requires authentication and `setup_2fa` permission.",
+        "operationId": "setup_2fa_endpoint_api_v1_user_management_2fa_setup_post",
+        "responses": {
+          "200": {
+            "description": "TOTP secret for 2FA setup",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Setup 2Fa Endpoint Api V1 User Management 2Fa Setup Post"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user_management/2fa/verify": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Verify 2FA token",
+        "description": "Verify a TOTP token for the authenticated user.\n- **token**: The 6-digit TOTP code from an authenticator app.\n- Requires authentication and `verify_2fa` permission.",
+        "operationId": "verify_2fa_endpoint_api_v1_user_management_2fa_verify_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of successful 2FA verification",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/users/{user_id}": {
+      "put": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Update a user",
+        "description": "Update an existing user's details.\n- **user_id**: The ID of the user to update.\n- **user_update**: Updated user details (e.g., email, first_name, is_super_user).\n- Only superusers can change `is_super_user`.\n- Requires authentication and `update_user` permission.",
+        "operationId": "update_user_endpoint_api_v1_user_management_users__user_id__put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Soft delete a user",
+        "description": "Soft delete a user by setting is_active to false.\n- **user_id**: The ID of the user to delete.\n- Superusers are protected from deletion.\n- Requires authentication and `delete_user` permission.",
+        "operationId": "delete_user_api_v1_user_management_users__user_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of successful deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/users/{user_id}/image": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Upload user profile image",
+        "description": "Upload a profile image for a user.\n- **user_id**: The ID of the user.\n- **image**: The image file (must be JPEG or PNG).\n- Requires authentication and `update_user` permission.",
+        "operationId": "upload_user_image_api_v1_user_management_users__user_id__image_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_user_image_api_v1_user_management_users__user_id__image_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Confirmation of successful image upload",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/roles": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Create a new role",
+        "description": "Create a new role for the RBAC system.\n- **name**: Unique name of the role (e.g., 'editor').\n- **description**: Optional description of the role.\n- Requires authentication and `create_role` permission.",
+        "operationId": "create_role_api_api_v1_user_management_roles_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Role Api Api V1 User Management Roles Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/permissions": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Create a new permission",
+        "description": "Create a new permission for the RBAC system.\n- **name**: Unique name of the permission (e.g., 'edit_hymn').\n- **description**: Optional description of the permission.\n- Requires authentication and `create_permission` permission.",
+        "operationId": "create_permission_api_api_v1_user_management_permissions_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Description"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Permission Api Api V1 User Management Permissions Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/users/{user_id}/roles/{role_id}": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Assign a role to a user",
+        "description": "Assign a role to a user.\n- **user_id**: The ID of the user.\n- **role_id**: The ID of the role to assign.\n- Requires authentication and `assign_role` permission.",
+        "operationId": "assign_role_api_v1_user_management_users__user_id__roles__role_id__post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Role Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of role assignment",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user_management/roles/{role_id}/permissions/{permission_id}": {
+      "post": {
+        "tags": [
+          "User Management"
+        ],
+        "summary": "Assign a permission to a role",
+        "description": "Assign a permission to a role for RBAC.\n- **role_id**: The ID of the role.\n- **permission_id**: The ID of the permission to assign.\n- Requires authentication and `assign_permission` permission.",
+        "operationId": "assign_permission_api_v1_user_management_roles__role_id__permissions__permission_id__post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Role Id"
+            }
+          },
+          {
+            "name": "permission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Permission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of permission assignment",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymn_books": {
+      "post": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Create a new hymn book",
+        "description": "Create a new hymn book.\n- **hymn_book**: Hymn book details (title).\n- Requires authentication and `create_hymn_book` permission.",
+        "operationId": "create_hymn_book_endpoint_api_v1_hymnal_hymn_books_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Title"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The created hymn book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HymnBookOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Get all hymn books",
+        "description": "Retrieve a list of all available hymn books.\n- Public endpoint (no authentication required).",
+        "operationId": "read_all_hymn_books_api_v1_hymnal_hymn_books_get",
+        "responses": {
+          "200": {
+            "description": "List of hymn books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HymnBookOut"
+                  },
+                  "title": "Response Read All Hymn Books Api V1 Hymnal Hymn Books Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymn_books/{hymn_book_id}": {
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Get a hymn book by ID",
+        "description": "Retrieve a single hymn book and its details.\n- **hymn_book_id**: The unique ID of the hymn book.\n- Public endpoint (no authentication required).",
+        "operationId": "read_hymn_book_by_id_api_v1_hymnal_hymn_books__hymn_book_id__get",
+        "parameters": [
+          {
+            "name": "hymn_book_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Book Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The hymn book object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HymnBookOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Delete a hymn book",
+        "description": "Delete a hymn book and its thumbnail file.\n- **hymn_book_id**: The ID of the hymn book.\n- Requires authentication and `delete_hymn_book` permission.",
+        "operationId": "delete_hymn_book_endpoint_api_v1_hymnal_hymn_books__hymn_book_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hymn_book_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Book Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymn_books/{hymn_book_id}/thumbnail": {
+      "post": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Upload hymn book thumbnail",
+        "description": "Upload a thumbnail image for a hymn book.\n- **hymn_book_id**: The ID of the hymn book.\n- **thumbnail**: The image file (JPEG or PNG).\n- Requires authentication and `update_hymn_book` permission.",
+        "operationId": "upload_hymn_book_thumbnail_api_v1_hymnal_hymn_books__hymn_book_id__thumbnail_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hymn_book_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Book Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_hymn_book_thumbnail_api_v1_hymnal_hymn_books__hymn_book_id__thumbnail_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Confirmation of successful upload",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymns": {
+      "post": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Create a new hymn",
+        "description": "Create a new hymn in a hymn book.\n- **hymn**: Hymn details (title, number, content with verses as list of {verse_tag, verse_name, verse_content}, optional chorus, optional variant_key).\n- Requires authentication and `create_hymn` permission.\n- Validates content: at least one verse; chorus optional.",
+        "operationId": "create_hymn_endpoint_api_v1_hymnal_hymns_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Title"
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Number"
+            }
+          },
+          {
+            "name": "variant_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Variant Key"
+            }
+          },
+          {
+            "name": "hymn_book_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Book Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Content"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created hymn",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HymnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymns/{hymn_id}": {
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Get a hymn by ID",
+        "description": "Retrieve a specific hymn.\n- **hymn_id**: The ID of the hymn.\n- Public endpoint (no authentication required).",
+        "operationId": "read_hymn_api_v1_hymnal_hymns__hymn_id__get",
+        "parameters": [
+          {
+            "name": "hymn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The hymn object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HymnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Update a hymn",
+        "description": "Update an existing hymn.\n- **hymn_id**: The ID of the hymn.\n- **hymn**: Updated hymn details (verses as list of {verse_tag, verse_name, verse_content}, optional chorus, optional variant_key).\n- Requires authentication and `update_hymn` permission.\n- Validates content: at least one verse; chorus optional.",
+        "operationId": "update_hymn_endpoint_api_v1_hymnal_hymns__hymn_id__put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hymn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Id"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Title"
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Number"
+            }
+          },
+          {
+            "name": "variant_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Variant Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Content"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated hymn",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HymnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Delete a hymn",
+        "description": "Delete a hymn from a hymn book.\n- **hymn_id**: The ID of the hymn.\n- Requires authentication and `delete_hymn` permission.",
+        "operationId": "delete_hymn_endpoint_api_v1_hymnal_hymns__hymn_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hymn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymn_books/{hymn_book_id}/hymns": {
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Get hymns by hymn book ID",
+        "description": "Retrieve all hymns belonging to a specific hymn book.",
+        "operationId": "get_hymns_by_hymn_book_api_v1_hymnal_hymn_books__hymn_book_id__hymns_get",
+        "parameters": [
+          {
+            "name": "hymn_book_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Book Id"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of hymns in the hymn book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HymnSearchResult"
+                  },
+                  "title": "Response Get Hymns By Hymn Book Api V1 Hymnal Hymn Books  Hymn Book Id  Hymns Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/search": {
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Search hymns by filters",
+        "description": "Search hymns using optional filters: title (partial match), number, hymn_book_id.",
+        "operationId": "search_hymns_filtered_api_v1_hymnal_search_get",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Title"
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Number"
+            }
+          },
+          {
+            "name": "hymn_book_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Hymn Book Id"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of matching hymns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HymnSearchResult"
+                  },
+                  "title": "Response Search Hymns Filtered Api V1 Hymnal Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hymnal/hymns/{hymn_id}/variants": {
+      "get": {
+        "tags": [
+          "Hymnal"
+        ],
+        "summary": "Get hymn variants",
+        "description": "Get all variants/versions of a hymn from other books.\n- **hymn_id**: The ID of the base hymn.\n- Matches by `variant_key` or title similarity.\n- Public endpoint.",
+        "operationId": "get_hymn_variants_endpoint_api_v1_hymnal_hymns__hymn_id__variants_get",
+        "parameters": [
+          {
+            "name": "hymn_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hymn Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of variant hymns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HymnVariantResult"
+                  },
+                  "title": "Response Get Hymn Variants Endpoint Api V1 Hymnal Hymns  Hymn Id  Variants Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Read Root",
+        "operationId": "read_root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_login_for_access_token_api_v1_user_management_login_post": {
+        "properties": {
+          "grant_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^password$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grant Type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "title": "Password"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": ""
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "format": "password",
+            "title": "Client Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Body_login_for_access_token_api_v1_user_management_login_post"
+      },
+      "Body_upload_hymn_book_thumbnail_api_v1_hymnal_hymn_books__hymn_book_id__thumbnail_post": {
+        "properties": {
+          "thumbnail": {
+            "type": "string",
+            "format": "binary",
+            "title": "Thumbnail",
+            "description": "Thumbnail image (JPEG or PNG)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "thumbnail"
+        ],
+        "title": "Body_upload_hymn_book_thumbnail_api_v1_hymnal_hymn_books__hymn_book_id__thumbnail_post"
+      },
+      "Body_upload_user_image_api_v1_user_management_users__user_id__image_post": {
+        "properties": {
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "title": "Image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image"
+        ],
+        "title": "Body_upload_user_image_api_v1_user_management_users__user_id__image_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HymnBookOut": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "thumbnail_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thumbnail Path"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "id"
+        ],
+        "title": "HymnBookOut"
+      },
+      "HymnOut": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "number": {
+            "type": "integer",
+            "title": "Number"
+          },
+          "content": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Content"
+          },
+          "variant_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Key"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "hymn_book_id": {
+            "type": "string",
+            "title": "Hymn Book Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "number",
+          "content",
+          "id",
+          "hymn_book_id"
+        ],
+        "title": "HymnOut"
+      },
+      "HymnSearchResult": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "number": {
+            "type": "integer",
+            "title": "Number"
+          },
+          "hymn_book_id": {
+            "type": "string",
+            "title": "Hymn Book Id"
+          },
+          "hymn_book_title": {
+            "type": "string",
+            "title": "Hymn Book Title"
+          },
+          "variant_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "number",
+          "hymn_book_id",
+          "hymn_book_title"
+        ],
+        "title": "HymnSearchResult"
+      },
+      "HymnVariantResult": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "number": {
+            "type": "integer",
+            "title": "Number"
+          },
+          "hymn_book_id": {
+            "type": "string",
+            "title": "Hymn Book Id"
+          },
+          "hymn_book_title": {
+            "type": "string",
+            "title": "Hymn Book Title"
+          },
+          "variant_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "number",
+          "hymn_book_id",
+          "hymn_book_title"
+        ],
+        "title": "HymnVariantResult"
+      },
+      "Token": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "token_type"
+        ],
+        "title": "Token"
+      },
+      "UserCreate": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "first_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Name"
+          },
+          "other_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Other Name"
+          },
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          },
+          "is_admin": {
+            "type": "boolean",
+            "title": "Is Admin",
+            "default": false
+          },
+          "is_super_user": {
+            "type": "boolean",
+            "title": "Is Super User",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "email"
+        ],
+        "title": "UserCreate"
+      },
+      "UserOut": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "first_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Name"
+          },
+          "other_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Other Name"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "is_admin": {
+            "type": "boolean",
+            "title": "Is Admin"
+          },
+          "is_super_user": {
+            "type": "boolean",
+            "title": "Is Super User"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "image_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Path"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "id",
+          "is_admin",
+          "is_super_user",
+          "is_active",
+          "created_at"
+        ],
+        "title": "UserOut"
+      },
+      "UserUpdate": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Name"
+          },
+          "other_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Other Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "email"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "is_admin": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Admin"
+          },
+          "is_super_user": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Super User"
+          }
+        },
+        "type": "object",
+        "title": "UserUpdate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {
+
+            },
+            "tokenUrl": "/api/v1/user_management/login"
+          }
+        }
+      }
+    }
+  }
+}
