@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, FlatList, StyleSheet, Text, TextInput } from 'react-native';
+import { getHymnMatchType } from '../utils/hymnUtils';
 import { useNavigation } from '@react-navigation/native';
 import withObservables from '@nozbe/with-observables';
 import { Q } from '@nozbe/watermelondb';
@@ -28,10 +29,21 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
         return indexB - indexA; // Descending order of index (latest added has higher index)
     });
 
-    const filteredHymns = sortedHymns.filter(hymn =>
+    let filteredHymns = sortedHymns.filter(hymn =>
         hymn.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         hymn.number.toString().includes(searchQuery)
     );
+
+    let isDeepSearch = false;
+    if (filteredHymns.length === 0 && searchQuery.trim().length > 0) {
+        filteredHymns = sortedHymns.filter(hymn => {
+            const matchType = getHymnMatchType(hymn, searchQuery);
+            return !!matchType;
+        });
+        if (filteredHymns.length > 0) {
+            isDeepSearch = true;
+        }
+    }
 
     const handleScroll = (event: any) => {
         const offsetY = event.nativeEvent.contentOffset.y;
@@ -58,12 +70,19 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
             <FlatList
                 data={filteredHymns}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <HymnRow
-                        hymn={item as any}
-                        onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
-                    />
-                )}
+                renderItem={({ item }) => {
+                    let matchType: 'verse' | 'chorus' | undefined;
+                    if (isDeepSearch) {
+                        matchType = getHymnMatchType(item, searchQuery);
+                    }
+                    return (
+                        <HymnRow
+                            hymn={item as any}
+                            onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
+                            matchType={matchType}
+                        />
+                    );
+                }}
                 ListEmptyComponent={
                     <View style={styles.empty}>
                         <Text style={[styles.emptyText, { color: theme.textSecondary }]}>

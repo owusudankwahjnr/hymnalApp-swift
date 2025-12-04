@@ -10,6 +10,9 @@ import { FavoritesScreen } from '../screens/FavoritesScreen';
 import { HymnDetailScreen } from '../screens/HymnDetailScreen';
 import { HymnListScreen } from '../screens/HymnListScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
+import { AboutScreen } from '../screens/AboutScreen';
+import { AcknowledgementsScreen } from '../screens/AcknowledgementsScreen';
+import { TermsScreen } from '../screens/TermsScreen';
 import { useSettings } from '../context/SettingsContext';
 
 const Stack = createNativeStackNavigator();
@@ -115,6 +118,36 @@ export const RootNavigator = () => {
                     options={{
                         title: 'Hymn Detail',
                         headerBackTitle: 'Back',
+                        gestureEnabled: true,
+                    }}
+                />
+                <Stack.Screen
+                    name="About"
+                    component={AboutScreen}
+                    options={{
+                        title: 'About',
+                        headerBackTitle: 'Back',
+                        headerShown: true,
+                        gestureEnabled: true,
+                    }}
+                />
+                <Stack.Screen
+                    name="Acknowledgements"
+                    component={AcknowledgementsScreen}
+                    options={{
+                        title: 'Acknowledgements',
+                        headerBackTitle: 'Back',
+                        headerShown: true,
+                        gestureEnabled: true,
+                    }}
+                />
+                <Stack.Screen
+                    name="Terms"
+                    component={TermsScreen}
+                    options={{
+                        title: 'Terms & Conditions',
+                        headerBackTitle: 'Back',
+                        headerShown: true,
                         gestureEnabled: true,
                     }}
                 />

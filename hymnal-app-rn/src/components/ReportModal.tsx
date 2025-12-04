@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, Linking, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, Alert, Linking, Platform, KeyboardAvoidingView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as MailComposer from 'expo-mail-composer';
-import withObservables from '@nozbe/with-observables';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
@@ -67,129 +67,137 @@ App Version: 1.0.0
         <Modal
             visible={visible}
             animationType="slide"
-            presentationStyle="pageSheet"
+            presentationStyle="fullScreen"
             onRequestClose={onClose}
         >
-            <View style={[styles.container, { backgroundColor: theme.background }]}>
-                <View style={[styles.header, { borderBottomColor: theme.border }]}>
-                    <Text style={[styles.headerTitle, { color: theme.text }]}>Report an Issue</Text>
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                        <Ionicons name="close-circle" size={30} color={theme.textSecondary} />
-                    </TouchableOpacity>
-                </View>
-
-                <KeyboardAwareScrollView
-                    style={{ flex: 1 }}
-                    contentContainerStyle={styles.content}
-                    enableOnAndroid={true}
-                    extraScrollHeight={20}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Text style={[styles.sectionTitle, { color: theme.text }]}>What's the issue?</Text>
-                    <View style={styles.typeContainer}>
-                        <TouchableOpacity
-                            style={[
-                                styles.typeCard,
-                                { backgroundColor: theme.card },
-                                reportType === 'hymn_issue' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
-                            ]}
-                            onPress={() => setReportType('hymn_issue')}
-                            disabled={!hymn}
-                        >
-                            <View style={[
-                                styles.iconCircle,
-                                { backgroundColor: theme.background },
-                                reportType === 'hymn_issue' && { backgroundColor: `${theme.primary}15` }
-                            ]}>
-                                <Ionicons
-                                    name="musical-notes"
-                                    size={24}
-                                    color={reportType === 'hymn_issue' ? theme.primary : theme.textSecondary}
-                                />
-                            </View>
-                            <Text style={[
-                                styles.typeTitle,
-                                { color: theme.text },
-                                reportType === 'hymn_issue' && { color: theme.primary }
-                            ]}>
-                                Hymn Content
-                            </Text>
-                            <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
-                                Typos, wrong lyrics, or missing verses.
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={[
-                                styles.typeCard,
-                                { backgroundColor: theme.card },
-                                reportType === 'app_bug' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
-                            ]}
-                            onPress={() => setReportType('app_bug')}
-                        >
-                            <View style={[
-                                styles.iconCircle,
-                                { backgroundColor: theme.background },
-                                reportType === 'app_bug' && { backgroundColor: `${theme.primary}15` }
-                            ]}>
-                                <Ionicons
-                                    name="bug"
-                                    size={24}
-                                    color={reportType === 'app_bug' ? theme.primary : theme.textSecondary}
-                                />
-                            </View>
-                            <Text style={[
-                                styles.typeTitle,
-                                { color: theme.text },
-                                reportType === 'app_bug' && { color: theme.primary }
-                            ]}>
-                                App Bug
-                            </Text>
-                            <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
-                                Crashes, glitches, or feedback.
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {hymn && reportType === 'hymn_issue' && (
-                        <View style={[styles.hymnPreview, { backgroundColor: theme.card }]}>
-                            <Ionicons name="document-text-outline" size={20} color={theme.textSecondary} />
-                            <View style={{ marginLeft: 12 }}>
-                                <Text style={[styles.previewTitle, { color: theme.text }]}>{hymn.title}</Text>
-                                <Text style={[styles.previewSubtitle, { color: theme.textSecondary }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
-                            </View>
+            <KeyboardAvoidingView
+                style={[{ flex: 1 }, { backgroundColor: theme.background }]}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+            >
+                <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }} edges={['top', 'bottom']}>
+                    <View style={[styles.container, { backgroundColor: theme.background }]}>
+                        <View style={[styles.header, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
+                            <Text style={[styles.headerTitle, { color: theme.text }]}>Report an Issue</Text>
+                            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                                <Ionicons name="close-circle" size={30} color={theme.textSecondary} />
+                            </TouchableOpacity>
                         </View>
-                    )}
 
-                    <Text style={[styles.sectionTitle, { color: theme.text }]}>Details</Text>
-                    <TextInput
-                        style={[styles.input, { backgroundColor: theme.card, color: theme.text, borderColor: theme.border }]}
-                        placeholder="Please describe the issue in detail..."
-                        placeholderTextColor={theme.textSecondary}
-                        multiline
-                        numberOfLines={6}
-                        value={description}
-                        onChangeText={setDescription}
-                        textAlignVertical="top"
-                        keyboardAppearance={theme.mode === 'dark' ? 'dark' : 'light'}
-                    />
+                        <KeyboardAwareScrollView
+                            style={{ flex: 1 }}
+                            contentContainerStyle={styles.content}
+                            enableOnAndroid={true}
+                            enableAutomaticScroll={true}
+                            extraScrollHeight={Platform.OS === 'ios' ? 200 : 250}
+                            keyboardShouldPersistTaps="handled"
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <Text style={[styles.sectionTitle, { color: theme.text }]}>What's the issue?</Text>
+                            <View style={styles.typeContainer}>
+                                <TouchableOpacity
+                                    style={[
+                                        styles.typeCard,
+                                        { backgroundColor: theme.card },
+                                        reportType === 'hymn_issue' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
+                                    ]}
+                                    onPress={() => setReportType('hymn_issue')}
+                                    disabled={!hymn}
+                                >
+                                    <View style={[
+                                        styles.iconCircle,
+                                        { backgroundColor: theme.background },
+                                        reportType === 'hymn_issue' && { backgroundColor: `${theme.primary}15` }
+                                    ]}>
+                                        <Ionicons
+                                            name="musical-notes"
+                                            size={24}
+                                            color={reportType === 'hymn_issue' ? theme.primary : theme.textSecondary}
+                                        />
+                                    </View>
+                                    <Text style={[
+                                        styles.typeTitle,
+                                        { color: theme.text },
+                                        reportType === 'hymn_issue' && { color: theme.primary }
+                                    ]}>
+                                        Hymn Content
+                                    </Text>
+                                    <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
+                                        Typos, wrong lyrics, or missing verses.
+                                    </Text>
+                                </TouchableOpacity>
 
-                    <TouchableOpacity style={[styles.sendButton, { backgroundColor: theme.primary, shadowColor: theme.primary }]} onPress={handleSend}>
-                        <Text style={styles.sendButtonText}>Send Report</Text>
-                        <Ionicons name="paper-plane" size={20} color="#FFFFFF" style={{ marginLeft: 8 }} />
-                    </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[
+                                        styles.typeCard,
+                                        { backgroundColor: theme.card },
+                                        reportType === 'app_bug' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
+                                    ]}
+                                    onPress={() => setReportType('app_bug')}
+                                >
+                                    <View style={[
+                                        styles.iconCircle,
+                                        { backgroundColor: theme.background },
+                                        reportType === 'app_bug' && { backgroundColor: `${theme.primary}15` }
+                                    ]}>
+                                        <Ionicons
+                                            name="bug"
+                                            size={24}
+                                            color={reportType === 'app_bug' ? theme.primary : theme.textSecondary}
+                                        />
+                                    </View>
+                                    <Text style={[
+                                        styles.typeTitle,
+                                        { color: theme.text },
+                                        reportType === 'app_bug' && { color: theme.primary }
+                                    ]}>
+                                        App Bug
+                                    </Text>
+                                    <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
+                                        Crashes, glitches, or feedback.
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
-                    <View style={{ height: 40 }} />
-                </KeyboardAwareScrollView>
-            </View>
+                            {hymn && reportType === 'hymn_issue' && (
+                                <View style={[styles.hymnPreview, { backgroundColor: theme.card }]}>
+                                    <Ionicons name="document-text-outline" size={20} color={theme.textSecondary} />
+                                    <View style={{ marginLeft: 12 }}>
+                                        <Text style={[styles.previewTitle, { color: theme.text }]}>{hymn.title}</Text>
+                                        <Text style={[styles.previewSubtitle, { color: theme.textSecondary }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
+                                    </View>
+                                </View>
+                            )}
+
+                            <Text style={[styles.sectionTitle, { color: theme.text }]}>Details</Text>
+                            <TextInput
+                                style={[styles.input, { backgroundColor: theme.card, color: theme.text, borderColor: theme.border }]}
+                                placeholder="Please describe the issue in detail..."
+                                placeholderTextColor={theme.textSecondary}
+                                multiline
+                                numberOfLines={6}
+                                value={description}
+                                onChangeText={setDescription}
+                                textAlignVertical="top"
+                                keyboardAppearance={theme.mode === 'dark' ? 'dark' : 'light'}
+                            />
+
+                            <TouchableOpacity style={[styles.sendButton, { backgroundColor: theme.primary, shadowColor: theme.primary }]} onPress={handleSend}>
+                                <Text style={styles.sendButtonText}>Send Report</Text>
+                                <Ionicons name="paper-plane" size={20} color="#FFFFFF" style={{ marginLeft: 8 }} />
+                            </TouchableOpacity>
+
+                            <View style={{ height: Platform.OS === 'ios' ? 150 : 200 }} />
+                        </KeyboardAwareScrollView>
+                    </View>
+                </SafeAreaView>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };
 
-export const ReportModal = withObservables(['hymn'], ({ hymn }: { hymn?: Hymn }) => ({
-    hymn: hymn ? hymn.observe() : undefined,
-    hymnBook: hymn ? hymn.hymnBook.observe() : undefined,
-}))(ReportModalComponent);
+// Export the component directly without withObservables since hymn and hymnBook are optional
+export const ReportModal = ReportModalComponent;
 
 const styles = StyleSheet.create({
     container: {
@@ -199,7 +207,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: SPACING.l,
+        paddingHorizontal: SPACING.l,
+        paddingVertical: SPACING.m,
         borderBottomWidth: 1,
     },
     headerTitle: {

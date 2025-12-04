@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch, Alert, Platform, ActionSheetIOS } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { SPACING, FONTS } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
+import { ReportModal } from '../components/ReportModal';
 
 export const SettingsScreen = () => {
+    const navigation = useNavigation();
     const { theme, themeMode, setThemeMode } = useSettings();
+    const [showReport, setShowReport] = useState(false);
 
     const handleAboutPress = () => {
-        Alert.alert(
-            'About Hymnal App',
-            'Version 1.0.0\n\nDeveloped by KOD.\n\nA comprehensive hymnal application for your spiritual needs.',
-            [{ text: 'OK' }]
-        );
+        navigation.navigate('About' as never);
     };
 
     const handleTermsPress = () => {
-        Alert.alert('Terms and Conditions', 'Placeholder for Terms and Conditions.');
+        navigation.navigate('Terms' as never);
+    };
+
+    const handleReportPress = () => {
+        setShowReport(true);
+    };
+
+    const handleAcknowledgementsPress = () => {
+        navigation.navigate('Acknowledgements' as never);
     };
 
     const handleThemeChange = () => {
@@ -87,6 +95,8 @@ export const SettingsScreen = () => {
                 <View style={[styles.section, { backgroundColor: theme.card }]}>
                     {renderItem('information-circle-outline', 'About App / Developer', handleAboutPress)}
                     <View style={[styles.separator, { backgroundColor: theme.border }]} />
+                    {renderItem('heart-circle-outline', 'Acknowledgements', handleAcknowledgementsPress)}
+                    <View style={[styles.separator, { backgroundColor: theme.border }]} />
                     {renderItem('document-text-outline', 'Terms and Conditions', handleTermsPress)}
                 </View>
 
@@ -103,11 +113,21 @@ export const SettingsScreen = () => {
                     )}
                 </View>
 
+                {renderSectionHeader('Support')}
+                <View style={[styles.section, { backgroundColor: theme.card }]}>
+                    {renderItem('bug-outline', 'Report a Bug', handleReportPress)}
+                </View>
+
                 <View style={styles.footer}>
                     <Text style={[styles.footerText, { color: theme.textSecondary }]}>Hymnal App v1.0.0</Text>
                     <Text style={[styles.footerText, { color: theme.textSecondary }]}>Made with ❤️ by KOD</Text>
                 </View>
             </ScrollView>
+
+            <ReportModal
+                visible={showReport}
+                onClose={() => setShowReport(false)}
+            />
         </SafeAreaView>
     );
 };

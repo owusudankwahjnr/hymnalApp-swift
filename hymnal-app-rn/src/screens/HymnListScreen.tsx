@@ -1,5 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { getHymnMatchType } from '../utils/hymnUtils';
+
+// ... (inside HymnListScreen)
+
 import { View, FlatList, StyleSheet, Text } from 'react-native';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { HymnService } from '../services/HymnService';
 import { HymnRow } from '../components/HymnRow';
@@ -25,18 +29,38 @@ export const HymnListScreen = () => {
     const route = useRoute<any>();
     const { hymnBookId, hymnBookTitle } = route.params || {};
 
+    const [isDeepSearch, setIsDeepSearch] = useState(false);
+
     const search = useCallback(async (reset = false) => {
         if (reset) {
             setLoading(true);
             setPage(0);
             setHasMore(true);
+            setIsDeepSearch(false);
         } else {
             setLoadingMore(true);
         }
 
         try {
             const skip = reset ? 0 : page * LIMIT;
-            const allMatches = await HymnService.searchHymns(query, hymnBookId).fetch();
+
+            // First try standard search
+            let allMatches = await HymnService.searchHymns(query, hymnBookId).fetch();
+            let deepSearchActive = false;
+
+            // If no results and query is present, try deep search
+            if (allMatches.length === 0 && query.trim().length > 0 && reset) {
+                allMatches = await HymnService.searchHymnsDeep(query, hymnBookId).fetch();
+                if (allMatches.length > 0) {
+                    deepSearchActive = true;
+                    setIsDeepSearch(true);
+                }
+            } else if (!reset && isDeepSearch) {
+                // Continue deep search for pagination
+                allMatches = await HymnService.searchHymnsDeep(query, hymnBookId).fetch();
+                deepSearchActive = true;
+            }
+
             const sliced = allMatches.slice(skip, skip + LIMIT);
             const data = sliced;
 
@@ -61,7 +85,7 @@ export const HymnListScreen = () => {
             setLoading(false);
             setLoadingMore(false);
         }
-    }, [query, hymnBookId, page]);
+    }, [query, hymnBookId, page, isDeepSearch]);
 
     useEffect(() => {
         const delay = query === '' ? 0 : 500;
@@ -117,12 +141,19 @@ export const HymnListScreen = () => {
                 <FlatList
                     data={results}
                     keyExtractor={(item, index) => `${item.id}-${index}`}
-                    renderItem={({ item }) => (
-                        <HymnRow
-                            hymn={item}
-                            onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
-                        />
-                    )}
+                    renderItem={({ item }) => {
+                        let matchType: 'verse' | 'chorus' | undefined;
+                        if (isDeepSearch) {
+                            matchType = getHymnMatchType(item, query);
+                        }
+                        return (
+                            <HymnRow
+                                hymn={item}
+                                onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
+                                matchType={matchType}
+                            />
+                        );
+                    }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}
                     ListFooterComponent={

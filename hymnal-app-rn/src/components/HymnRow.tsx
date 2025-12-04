@@ -12,9 +12,10 @@ interface Props {
     hymn: Hymn;
     hymnBook?: HymnBook;
     onPress: () => void;
+    matchType?: 'verse' | 'chorus';
 }
 
-const HymnRowComponent: React.FC<Props> = ({ hymn, hymnBook, onPress }) => {
+const HymnRowComponent: React.FC<Props> = ({ hymn, hymnBook, onPress, matchType }) => {
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     const { theme } = useSettings();
     const isFav = isFavorite(hymn.id);
@@ -39,6 +40,13 @@ const HymnRowComponent: React.FC<Props> = ({ hymn, hymnBook, onPress }) => {
                 </View>
 
                 <View style={styles.textContainer}>
+                    {matchType && (
+                        <View style={[styles.matchBadge, { backgroundColor: theme.primary + '20' }]}>
+                            <Text style={[styles.matchText, { color: theme.primary }]}>
+                                {matchType === 'verse' ? 'Verse Match' : 'Chorus Match'}
+                            </Text>
+                        </View>
+                    )}
                     <Text style={[styles.title, { color: theme.text }]} numberOfLines={1}>
                         {hymn.title}
                     </Text>
@@ -109,5 +117,17 @@ const styles = StyleSheet.create({
     },
     favoriteButton: {
         padding: SPACING.xs,
+    },
+    matchBadge: {
+        alignSelf: 'flex-start',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+        marginBottom: 4,
+    },
+    matchText: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
     },
 });

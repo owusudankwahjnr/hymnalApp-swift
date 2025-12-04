@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, Image, Pla
 import { Ionicons } from '@expo/vector-icons';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
-import { SPACING } from '../constants/theme';
+import { SPACING, FONTS } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
 import HymnBook from '../db/models/HymnBook';
@@ -17,6 +17,7 @@ interface Props {
 
 export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }) => {
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+    const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('dark');
     const viewShotRef = useRef(null);
     const { theme } = useSettings();
 
@@ -222,36 +223,66 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
 
                     <Text style={[styles.sectionTitle, { color: theme.text }]}>Preview</Text>
 
-                    <View style={styles.previewContainer}>
-                        <View style={styles.shareCard}>
-                            <View style={styles.cardHeader}>
-                                <View>
-                                    <Text style={styles.cardTitle}>{hymn.title}</Text>
-                                    <Text style={styles.cardSubtitle}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
-                                </View>
-                                <View style={styles.logoContainer}>
-                                    <Image
-                                        source={require('../../assets/icon.png')}
-                                        style={styles.logo}
-                                    />
-                                </View>
-                            </View>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.previewScrollContent}
+                        style={styles.previewScroll}
+                    >
+                        {['dark', 'light'].map((mode) => {
+                            const isSelected = previewTheme === mode;
+                            const isDark = mode === 'dark';
+                            const bgColor = isDark ? '#1A1A1A' : '#FFFFFF';
+                            const textColor = isDark ? '#FFFFFF' : '#000000';
+                            const subTextColor = isDark ? '#AAAAAA' : '#666666';
 
-                            <View style={styles.cardBody}>
-                                <Text style={styles.lyricsText}>
-                                    {selectedContent}
-                                </Text>
-                            </View>
+                            return (
+                                <TouchableOpacity
+                                    key={mode}
+                                    onPress={() => setPreviewTheme(mode as 'light' | 'dark')}
+                                    activeOpacity={0.9}
+                                    style={[
+                                        styles.previewWrapper,
+                                        isSelected && { borderColor: theme.primary, borderWidth: 2, transform: [{ scale: 1.02 }] }
+                                    ]}
+                                >
+                                    <View style={[styles.shareCard, { backgroundColor: bgColor, width: 280 }]}>
+                                        <View style={styles.cardHeader}>
+                                            <View>
+                                                <Text style={[styles.cardTitle, { color: textColor }]} numberOfLines={1}>{hymn.title}</Text>
+                                                <Text style={[styles.cardSubtitle, { color: subTextColor }]}>Hymn #{hymn.number}</Text>
+                                            </View>
+                                            <View style={styles.logoContainer}>
+                                                <Image
+                                                    source={require('../../assets/icon.png')}
+                                                    style={styles.logo}
+                                                />
+                                            </View>
+                                        </View>
 
-                            <View style={styles.cardFooter}>
-                                <Image
-                                    source={require('../../assets/icon.png')}
-                                    style={styles.footerLogo}
-                                />
-                                <Text style={styles.footerText}>Hymnal</Text>
-                            </View>
-                        </View>
-                    </View>
+                                        <View style={styles.cardBody}>
+                                            <Text style={[styles.lyricsText, { color: textColor, fontSize: 16, lineHeight: 24 }]} numberOfLines={20}>
+                                                {selectedContent}
+                                            </Text>
+                                        </View>
+
+                                        <View style={styles.cardFooter}>
+                                            <Image
+                                                source={require('../../assets/icon.png')}
+                                                style={styles.footerLogo}
+                                            />
+                                            <Text style={[styles.footerText, { color: textColor }]}>Hymnal</Text>
+                                        </View>
+                                    </View>
+                                    {isSelected && (
+                                        <View style={[styles.checkmarkBadge, { backgroundColor: theme.primary }]}>
+                                            <Ionicons name="checkmark" size={16} color="#FFFFFF" />
+                                        </View>
+                                    )}
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </ScrollView>
 
                     {/* Hidden Capture View (Square) */}
                     {/* On Android, 'left: -10000' can cause the view to not render. 
@@ -267,11 +298,11 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                         }}
                     >
                         <ViewShot ref={viewShotRef} options={{ format: 'jpg', quality: 0.9 }}>
-                            <View style={[styles.shareCard, { borderRadius: 0 }]}>
+                            <View style={[styles.shareCard, { borderRadius: 0, backgroundColor: previewTheme === 'dark' ? '#1A1A1A' : '#FFFFFF' }]}>
                                 <View style={styles.cardHeader}>
                                     <View>
-                                        <Text style={styles.cardTitle}>{hymn.title}</Text>
-                                        <Text style={styles.cardSubtitle}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
+                                        <Text style={[styles.cardTitle, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>{hymn.title}</Text>
+                                        <Text style={[styles.cardSubtitle, { color: previewTheme === 'dark' ? '#AAAAAA' : '#666666' }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
                                     </View>
                                     <View style={styles.logoContainer}>
                                         <Image
@@ -282,7 +313,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                 </View>
 
                                 <View style={styles.cardBody}>
-                                    <Text style={styles.lyricsText}>
+                                    <Text style={[styles.lyricsText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>
                                         {selectedContent}
                                     </Text>
                                 </View>
@@ -292,7 +323,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                         source={require('../../assets/icon.png')}
                                         style={styles.footerLogo}
                                     />
-                                    <Text style={styles.footerText}>Hymnal</Text>
+                                    <Text style={[styles.footerText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>Hymnal</Text>
                                 </View>
                             </View>
                         </ViewShot>
@@ -416,7 +447,7 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+        fontFamily: FONTS.regular,
         fontWeight: '500',
     },
     cardFooter: {
@@ -453,5 +484,32 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    previewScroll: {
+        marginBottom: SPACING.xl,
+    },
+    previewScrollContent: {
+        paddingHorizontal: SPACING.s,
+        paddingBottom: SPACING.m,
+        paddingTop: SPACING.m,
+    },
+    previewWrapper: {
+        marginRight: SPACING.m,
+        borderRadius: 26,
+        borderWidth: 2,
+        borderColor: 'transparent',
+        position: 'relative',
+    },
+    checkmarkBadge: {
+        position: 'absolute',
+        top: -8,
+        right: -8,
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#FFFFFF',
     },
 });

@@ -10,71 +10,51 @@
       "title": "Kristo Asore Nnwom",
       "id": "2fffb326-b9b9-435b-ac61-7978bc3bd322",
       "thumbnail_path": null,
-      "hymn_count": 180
+      "hymn_count": 181
+    },
+    {
+      "title": "Sacred Selections",
+      "id": "2adcc0be-fbd0-4087-ac13-34a044850507",
+      "thumbnail_path": null,
+      "hymn_count": 15
     }
   ],
   "hymns": [
     {
       "title": "Anuanom Akristofo",
-      "number": 5418,
+      "number": 1,
       "content": {
         "verses": [
           {
             "verse_tag": "Bass",
-            "verse_name": "1",
+            "verse_name": "Verse 1",
             "verse_content": "Anuanom Akristofo ee"
           },
           {
             "verse_tag": "All",
-            "verse_name": "2",
+            "verse_name": "Verse 2",
             "verse_content": "Mosɔ mogyedi mu den"
           },
           {
             "verse_tag": "Alto",
-            "verse_name": "3",
+            "verse_name": "Verse 3",
             "verse_content": "Awurade da no deɛ"
           },
           {
             "verse_tag": "All",
-            "verse_name": "4",
+            "verse_name": "Verse 4",
             "verse_content": "Ɛbɛ yɛ dwee"
           },
           {
             "verse_tag": "All",
-            "verse_name": "4",
-            "verse_content": "Ɔreba oo Yesu reba oo \n Ao menua Ɛnti sakyera wadwene \n Awurade reba oo sakyera wadwene"
+            "verse_name": "Verse 5",
+            "verse_content": "Ɔreba oo \r\nYesu reba oo \r\nAo menua \r\nƐnti sakyera wadwene \r\nAwurade reba oo sakyera wadwene"
           }
         ]
       },
       "variant_key": null,
       "id": "379ae843-9107-48d8-9983-f786de2ab10d",
       "hymn_book_id": "e1597110-0dce-497e-9ce8-8c44f38dcc94"
-    },
-    {
-      "title": "TO WO BO YE KRONKRON",
-      "number": 29,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "To w bo yɛ kronkron Ne wo wura nkasa Tena ne mu mmerɛ nyinaa Ma ne nsɛm nyɛn wo Fa Nyame ma nnamfo Boa wɔn a wɔagye mmerɛ Mma wo werɛ mfi biribiam’ sɛ W’ bɛhwehwɛ ne nhyira."
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "To wo bo yɛ kronkron Wiase retwan kɔ Wo ne Yesu nko ntaa Nhyɛ kokooam mmerɛ pii Sɛ wo tena Yesu mu a Wo bɛyɛ sɛ ɔno Wo nnamfo bɛhu no Wɔ wabrabɔ mu"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "To wo bo yɛ kronkron Ma wo kra nyɛ dinn Adwene ne nsusui bi a Fa hyɛ ne tumi’ ase Ma honhom no nni wanin Nkɔ dɔ abura ho Na ɛnkyɛ wobɛfata Adwuma wɔ soro."
-          }
-        ]
-      },
-      "variant_key": null,
-      "id": "62a003ff-c9ca-424c-b347-2142ac47edbb",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
       "title": "Asafo no fapem",
@@ -422,37 +402,6 @@
       },
       "variant_key": null,
       "id": "f57d4e9e-5ef8-4326-8cc1-c124f7f1f227",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Asodie da me so",
-      "number": 88,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Asodie da me so Sε mekamfo Nyame Mεgye me kra a εnwu da nkwa Ma εfata soro"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Asom mmeresanten yi Adi me dwuma no Anka me de made nyina Maye me wura Ne pɛ"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Ma menhwɛ me ho yiye Te sɛ me te wo nkyɛn Me wura,bɛboa wo somfoᴐ Na mabu akontaa pa"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Ma menwɛn memᴐ mpae Na mentwere Wo nko Sɛ megoro m’adwuma ho a Mewu wu a enni awiei"
-          }
-        ]
-      },
-      "variant_key": null,
-      "id": "e60f2258-e2de-4816-94d6-85b145fd3ddc",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -1454,33 +1403,6 @@
       },
       "variant_key": null,
       "id": "f412f90c-3ee4-4c03-a344-7a6813b38c64",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Metie",
-      "number": 7,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Sɛ Agyenkwa no frɛ a mɛgye so Sɛ ɔfrɛ me a mɛte ne nne Sɛ Agyenkwa no frɛ a mɛgye so Mɛgyina baabi na m’atie me din"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Sɛ makoma tene na ɔfrɛ me Sɛ makoma tene a mɛte ne nne Sɛ makoma tene na ɔfrɛ me Mɛgyina baabi na matie me din"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Sɛ m’atade hyerɛn na ɔfrɛ me Sɛ m’atade hyerɛn a mɛte ne nne Sɛ m’atade hyerɛn na ɔfrɛ me Mɛgyina baabi na matie me din"
-          }
-        ],
-        "chorus": "Mɛgyina baabi matie Mɛgyina baabi matie Mɛgyina baabi na matie me din"
-      },
-      "variant_key": null,
-      "id": "660ef7cc-54d8-4b4d-966f-9c5c33f66e0f",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -2796,32 +2718,6 @@
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
-      "title": "oman bi wo ho esrense wiem",
-      "number": 48,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Ɔman bi wↄ hↄ εhyerεn sen wim Yεde gyedi hu wↄ akyiri Na Agya retwεn wↄ kwan so Asiesie tenabea ama yεn hↄ."
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Yεbεto wↄ mpoano fεfε hↄ Nhyirafoↄ nnwom a εyε dε no Yεn honhom renni yea ara da Yεnsi apini yεn home mu."
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Yεn soro Agya ↄdεεfoↄ no Yεde yεn ayεyi bεma no Wↄ nhyira a ↄde dom yεn ha Ne ne dↄ akyεdeε fεfε nti"
-          }
-        ]
-      },
-      "variant_key": null,
-      "id": "a8329f34-21d9-4a89-82e0-76b082f2d6dd",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
       "title": "MA NO MRA MU",
       "number": 18,
       "content": {
@@ -2913,6 +2809,33 @@
       },
       "variant_key": null,
       "id": "45207253-bb89-422b-a4ed-7d564a4b40b2",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "oman bi wo ho esrense wiem",
+      "number": 48,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Ɔman bi wↄ hↄ εhyerεn sen wim \r\nYεde gyedi hu wↄ akyiri \r\nNa Agya retwεn wↄ kwan so \r\nAsiesie tenabea ama yεn hↄ."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Yεbεto wↄ mpoano fεfε hↄ \r\nNhyirafoↄ nnwom a εyε dε no \r\nYεn honhom renni yea ara da \r\nYεnsi apini yεn home mu."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yεn soro Agya ↄdεεfoↄ no \r\nYεde yεn ayεyi bεma no \r\nWↄ nhyira a ↄde dom yεn ha \r\nNe ne dↄ akyεdeε fεfε nti"
+          }
+        ],
+        "chorus": "Daakye bi anigyesεm\r\nYεbεhyia wɔ mpoano fεfε hↄ."
+      },
+      "variant_key": "SWEET BY AND BY",
+      "id": "a8329f34-21d9-4a89-82e0-76b082f2d6dd",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -3051,38 +2974,6 @@
       },
       "variant_key": null,
       "id": "e3234e45-a1cd-496a-a68b-64d3b5febf31",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Munsuro kuo ketewa",
-      "number": 11,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Monsuro kuo ketewa Agyenkwa no aka sɛ Agya no de ahenie no bɛma mo Monnfa fam ha bɔne Nsɛe mo ntade Me nnwan ho bɛyɛ fitaa sɛ sukyerɛma"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Fitaa paa ara mɛhyerɛn akyɛn adekyee Fisɛ Kristo yɛ abura a ɛhoro bɔne O ɔbɔneyɛfo fa wadeso yi ma no Na fa wo haw nyinaa kɔka ne kuo no ho"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Odwan a ɔyerae wɔ bɔne abun mu no Dwanhwɛfo no huu no de no baa efie Nna aseda nnwom gyegye mmepɔ no so sɛ Mayɔnkofo mahu dwan a ɔyɛrae no"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Twi fa sɔhwɛ so na gyae wo hu yi Yesu yɛ wo ‘dwanhwɛfo, ne nsa yɛ ɔgye Ɔrenyaa wo da, ɔyɛ onua ne adamfo Ɔbɛdɔ wɔ agye wo wiase a ɛnni awieɛ no m’"
-          }
-        ],
-        "chorus": "Fitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) Fitaa paa ara (Me pɛ m’ayɛ) Fitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) Fitaa paa ara"
-      },
-      "variant_key": null,
-      "id": "2edf9344-cc53-467b-a782-a938810227d7",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -4035,65 +3926,29 @@
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "‘Hyria nka homa a εka Yε akoma bom Kristo dↄm Ayↄnkofa wↄ adwene koro m Te sε ↄsoro de no."
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Nyhria nka homa a εka \r\nYε akoma bom Kristo dↄm \r\nAyↄnkofa wↄ adwene koro m\r\nTe sε ↄsoro de no."
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Yε hwiee yεn mpae denden Gu Agya ahenwa no anim Yεn suro, yε botae yε koro Yε awerεkyekye ne yεn hia."
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Yε hwiee yεn mpae denden \r\nGu Agya ahenwa no anim \r\nYεn suro, yε botae yε koro \r\nYε awerεkyekye ne yεn hia."
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Yε kyε yεn amaneε koro Yε soa yεn adesoa koro no Na yε taa nya ayamhyehye Ma yεn nuanom nyinaa."
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yε kyε yεn amaneε koro no\r\nYε soa yεn adesoa koro no \r\nNa yε taa nya ayamhyehye \r\nMa yεn nuanom nyinaa."
           },
           {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Sε yε mu hwete a Yedi yea wↄ yεn mu pii Nanso yε bom’ wↄ akoma mu Na yεnim yebehyia bio."
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Sε yε mu hwete a \r\nYedi yea wↄ yεn mu pii \r\nNanso yε bom’ wↄ akoma mu \r\nNa yεnim yebehyia bio."
           }
         ]
       },
-      "variant_key": "qwerty",
+      "variant_key": "BLEST BE THE TIE",
       "id": "ca1a00e8-c31f-4327-b3c6-1b54ec171c99",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Awurade Adidi",
-      "number": 15,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Sɛ w’ahotefo de anigye Ba wo pono ho a Awurade hyirafo Sɛ wɔrebehia adidi De akae wo wuo nwannwa no a Woa wɔn ho de anigye a Ɛsen fam ha de hyira wɔn"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Yɛ de ‘dɔ koma ne ayɛi ndwom Apue wasure fie ha seisei Yɛani gye sɛ yɛn nkwa naa nyinaa Wo nti yɛkɔ ahummɔbɔ adwa anim Na yɛ’ Agya anim hɔ Yɛ nya anigye wɔ akoma ne adwene mu"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Nyame adwamaa ɔdɔ adidi yi ‘Yɔnkofa wɔ wo honam ne mogyam Twam adidi a ɛkorɔn sɛ Wɔ dii aduan nwonwon no ntɛm so Yɛn de yɛnni yea biara nnɛ Wo mogya ayi ne nyinaa afi hɔ"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Yɛ bubu abodoo a ɛkasa kyerɛ yɛn Abodoo kronkron a Wode ma sɛ ɛnyɛ Agyenka wo de ampa Wo ne nyɛ nkwa, ɔsoro abodoo Nkwa a efi Agya no bom"
-          },
-          {
-            "verse_tag": "v5",
-            "verse_name": "5",
-            "verse_content": "Kuruwa a yɛnyira no! yɔnkofa dɛɛdɛ Wo deɛ ɔde ne mogya horo yɛn ho no m’ Na ɔama yɛn afata n’anim, Sɛ yɛtwam kɔ asuo n’akyi hɔ a Yɛn wura yɛda wase dɔn fɛfɛ yi a Ɛkyerɛ wo nkwagye tumi nyinaa"
-          }
-        ]
-      },
-      "variant_key": null,
-      "id": "03427a6b-708a-4a16-9c03-bbdbb287092d",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -4957,37 +4812,6 @@
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
-      "title": "Wo a mekoma afe wo",
-      "number": 90,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Wo a me koma afe wo M’Agyenkwa no wo wↄ he? Yesu afa me yↄnko Na afei deε w’afa he?"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Me kra ayɛ hahaaha sɛ Repɛ wo, me dɔfo pa Bɔne ama m’abrɛ sɛ Ɛnti bra bɛgye me nkwa"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Me de mmↄborↄ nne me frε wo Yesu, ’he mpo na wo kↄ? Hwee remma me nya ahotↄ Akosi sε me wu?"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Sε menya nnomaa ntaban a Anka mεtu ma kↄ Ma kↄ hwehwe wiem ne’ soro Mahu deε Yesu wↄ"
-          }
-        ]
-      },
-      "variant_key": null,
-      "id": "fdc5d9b9-a6bd-470c-89e9-9cb077c63e86",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
       "title": "BO MPAE MERE NYINAA",
       "number": 94,
       "content": {
@@ -5039,38 +4863,6 @@
       },
       "variant_key": null,
       "id": "be712bb5-3bd1-41d3-b783-4bc33a669bcd",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Wɔ Anim Hɔ",
-      "number": 9,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Sɔhwɛ ne haw taa gya yɛ’ adwendwen sɛ Adɛn na ɛwɔ sɛ ɛba saa mmerɛ nyinaa Berɛ a ɛbinom atwa yɛn ho ahyia Wɔ yɛ bɔne nso haw nni wɔn so"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Sɛ owu ba bɛfa yɛ’adɔfo kɔ Egya awerɛhoɔ ne suro ye’afie mu Na ɛma yɛ dwene wɔn asi a asi wɔn yie ho Sɛ wɔte bɔne mu mmerɛ nyinaa."
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Yɛn wura no si di nokware kɔ wuo mu Yɛ adwuma twɛn nna kakra yi mu Na yɛrenmu ɔkwan mu suro no Sɛ yɛhyɛn ɔpon fɛfɛ no mu a"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Sɛ yɛhu Yesu sɛ ɔba n’anuonyam Sɛ ɔfi ne soro fie no mu ba a Yɛbehyia no wɔ fie hyɛnhyɛn no mu Ԑnkyɛ bi yɛbɛte ne nyinaa ase"
-          }
-        ],
-        "chorus": "Anim hɔ yɛ bɛhu bribiara Anim hɔ yɛbɛte ne nyinaa ase Ma w’ani nnye me nua, ka wo ho hye Ԑnkyɛ bi yɛbɛte ne nyinaa ase."
-      },
-      "variant_key": null,
-      "id": "a7a987a3-531c-4964-bf51-218330feb285",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -5133,6 +4925,37 @@
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
+      "title": "Wo a mekoma afe wo",
+      "number": 90,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "v1",
+            "verse_name": "1",
+            "verse_content": "Wo a me koma afe wo M’Agyenkwa no wo wↄ he? Yesu afa me yↄnko Na afei deε w’afa he?"
+          },
+          {
+            "verse_tag": "v2",
+            "verse_name": "2",
+            "verse_content": "Me kra ayɛ hahaaha sɛ Repɛ wo, me dɔfo pa Bɔne ama m’abrɛ sɛ Ɛnti bra bɛgye me nkwa"
+          },
+          {
+            "verse_tag": "v3",
+            "verse_name": "3",
+            "verse_content": "Me de mmↄborↄ nne me frε wo Yesu, ’he mpo na wo kↄ? Hwee remma me nya ahotↄ Akosi sε me wu?"
+          },
+          {
+            "verse_tag": "v4",
+            "verse_name": "4",
+            "verse_content": "Sε menya nnomaa ntaban a Anka mεtu ma kↄ Ma kↄ hwehwe wiem ne’ soro Mahu deε Yesu wↄ"
+          }
+        ]
+      },
+      "variant_key": "qwerty",
+      "id": "fdc5d9b9-a6bd-470c-89e9-9cb077c63e86",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
       "title": "Ɔbɔne Hu Nynasa Ntεm",
       "number": 76,
       "content": {
@@ -5161,60 +4984,6 @@
       },
       "variant_key": null,
       "id": "6710f517-be49-4015-ae42-e48c4776ae72",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "O Ka Asɛmpa No",
-      "number": 8,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "O ka asɛmpa no Baabiara nnipa te Baabiara nnipa ho asɛm Ne ammaneɛ wɔ Ma Kristoni biara nka anigye nsɛm yi Yɛn Wura, yɛ awura mu Wura"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Monhwɛ ahene mu Hene Ayaresa wɔ ne nsam Na ɔde nkwagye Brɛ akra a wɔayera Ma enkunim nnwom no Ngyegye ebun no mu Yɛn Wura, yɛ awura mu Wura"
-          }
-        ],
-        "chorus": "Ɔyɛ Awura mu Awurade Asɛm Kronkron a ɛte ase Ne din yɛ dɛ kyɛn so Ne pɛ ma nkwagye O ka asɛmpa no Baabiara nnipa te Yɛn Wura, yɛ ahene mu Hene"
-      },
-      "variant_key": null,
-      "id": "8d64562a-0e5e-4938-a2c6-0013172aa7f1",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Ɛyɛ Sɛ Metwere Yesu",
-      "number": 12,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Ɛyɛ sɛ metwere Yesu Na megye N’asɛm no di Na me hwɛ ne bɔhyɛ no kwan Na me hu deɛ Nyame se"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Ɛyɛ sɛ metwere yesu Mani da ne mogya so Ɔnam gyidi so de me hyɛ Mogya a ɛte me ho nom"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Ɛyɛ ampa sɛ metwere Yesu Gyae bɔne ne ahopɛ Na megye nkwa, home anigye Ne asomdwoe fi Yesu hɔ"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "ɛyɛ sɛ metwere Yesu Yesu pa, gyefo yɔnko Menim yie sɛ woka me ho Na wobɛka me ho daa"
-          }
-        ],
-        "chorus": "Yesu, Yesu matwere no Masɔ no mahwɛ mpɛn pii Yesu, Yesu a ɔsom bo Maa m’adom mentwere wo pii"
-      },
-      "variant_key": "qwerty",
-      "id": "000890f7-8093-4270-ace2-5960f76941b2",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -5249,97 +5018,121 @@
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
+      "title": "O Ka Asɛmpa No",
+      "number": 8,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "O ka asɛmpa no \r\nBaabiara nnipa te \r\nBaabiara nnipa ho asɛm \r\nNe ammaneɛ wɔ \r\nMa Kristoni biara nka anigye nsɛm yi \r\nYɛn Wura, yɛ awura mu Wura"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Monhwɛ ahene mu \r\nHene Ayaresa wɔ ne nsam \r\nNa ɔde nkwagye \r\nBrɛ akra a wɔayera \r\nMa enkunim nnwom no \r\nNgyegye ebun no mu \r\nYɛn Wura, yɛ awura mu Wura"
+          }
+        ],
+        "chorus": "Ɔyɛ Awura mu Awurade \r\nAsɛm Kronkron a ɛte ase \r\nNe din yɛ dɛ kyɛn so \r\nNe pɛ ma nkwagye \r\nO ka asɛmpa no \r\nBaabiara nnipa te \r\nYɛn Wura, yɛ ahene mu Hene"
+      },
+      "variant_key": null,
+      "id": "8d64562a-0e5e-4938-a2c6-0013172aa7f1",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
       "title": "Naawɔtwe Da A Edi Kan",
       "number": 1,
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Naawɔtwe da a edi kan no m\n Yɛ ‘Agyenkwa sɔre fi nna mu \nOwui, wɔsiee no, w’asɔre \nSɛ onni hene na ɔnnye yɛn nkwa."
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Naawɔtwe da a edi kan no m\r\n Yɛ ‘Agyenkwa sɔre fi nna mu \r\nOwui, wɔsiee no, w’asɔre \r\nSɛ onni hene na ɔnnye yɛn nkwa."
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Naawɔtwe da a edi kan no m \nAsuafo hyia bubu abodoo \nWɔnom nkaeɛ kuruwa ano \nDe kae deɛ ɔkyii ne mogya mmae"
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Naawɔtwe da a edi kan no m \r\nAsuafo hyia bubu abodoo \r\nWɔnom nkaeɛ kuruwa ano \r\nDe kae deɛ ɔkyii ne mogya mmae"
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Naawɔtwe da a edi kan no m \nMoma yɛn nsiesie yɛ ho sie \nNa yɛnfa deɛ ahene mu hene \nDe adom yɛn no mu bi merɛ no"
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Naawɔtwe da a edi kan no m \r\nMoma yɛn nsiesie yɛ ho sie \r\nNa yɛnfa deɛ ahene mu hene \r\nDe adom yɛn no mu bi merɛ no"
           },
           {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Saa da yi mu na Yohane \nHunuu Kristo na ɔtee ne nne \nYɛn so yɛsom wɔ honhom mu \nDe mpae ne nnwom ma ye anigye"
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Saa da yi mu na Yohane \r\nHunuu Kristo na ɔtee ne nne \r\nYɛn so yɛsom wɔ honhom mu \r\nDe mpae ne nnwom ma ye anigye"
           }
         ],
-        "chorus": "Sɛ binom bɛpow Awurade \nYɛn deɛ yɛ pɛ wo nokware no \nWo ka yɛn ho kyekye yɛn werɛ \nNaawɔtwe da edi kan no."
+        "chorus": "Sɛ binom bɛpow Awurade \r\nYɛn deɛ yɛ pɛ wo nokware no \r\nWo ka yɛn ho kyekye yɛn werɛ \r\nNaawɔtwe da edi kan no."
       },
-      "variant_key": "qwerty",
+      "variant_key": "UPON THE FIRST DAY OF THE WEEK",
       "id": "d6739039-1295-4c61-bd7d-faf7ff2957f4",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
-      "title": "Me Kra Awia",
-      "number": 2,
+      "title": "Ɛyɛ Sɛ Metwere Yesu",
+      "number": 12,
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Me kra awia m’Agyenkwa pa Wo bεn m’ a ade nsa me da Mma sum bi mfi asase yi so Nhita wo mfi w’akoa ani so."
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Ɛyɛ sɛ metwere Yesu \r\nNa megye N’asɛm no di \r\nNa me hwɛ ne bɔhyɛ no kwan \r\nNa me hu deɛ Nyame se"
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Sε εnna de ne bosuo no Ka mani brεfoↄ yi gu soa Ma mendwene dε a εbεyε Sε mεhome m’Agyenkwa bom daa."
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Ɛyɛ sɛ metwere yesu \r\nMani da ne mogya so \r\nƆnam gyidi so de me hyɛ \r\nMogya a ɛte me ho nom"
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Wo ne me ntena adekyee mu Wonni me nkyεn a mentumi ntena ase Ade resa a wo ne me ntena Wo ka me ho a mensuro wuo."
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Ɛyɛ ampa sɛ metwere Yesu \r\nGyae bɔne ne ahopɛ \r\nNa megye nkwa, home anigye \r\nNe asomdwoe fi Yesu hɔ"
           },
           {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Sε yεnyane a bεhyira yεn Ansa na yε‘ afa yεn akwan so Kosi sε ↄdↄ kεse no De yεn bepue ↄsoro nohoaa."
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Ɛyɛ sɛ metwere Yesu \r\nYesu pa, gyefo yɔnko \r\nMenim yie sɛ woka me ho \r\nNa wobɛka me ho daa"
           }
-        ]
+        ],
+        "chorus": "Yesu, Yesu matwere no \r\nMasɔ no mahwɛ mpɛn pii \r\nYesu, Yesu a ɔsom bo \r\nMaa m’adom mentwere wo pii"
       },
-      "variant_key": "qwerty",
-      "id": "cb303a97-ce70-4b2f-9e5e-8e59b1c8893b",
+      "variant_key": "TIS SO SWEET",
+      "id": "000890f7-8093-4270-ace2-5960f76941b2",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
-      "title": "Ɔdo Kronkron",
-      "number": 5,
+      "title": "Owura Soma Me",
+      "number": 14,
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "ɔdↄ kronkron εkyεn ‘dↄ biara Soro anigye aba fam ha Fa yεn mu yε wo tenabea Ma wo ahummↄbↄ nni mu Yesu wo yε awerεkyekye Wo yε dↄ a εnni ano Fa wo nkwagye no bεsra yεn Bεwura koma biara mu."
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Adwuma abu ‘dwuma wɔ hɔ ma obia \r\nTie mmoa sufrɛ no gyegye baabiara \r\nDɛn na me wura hwehwɛ \r\nMenia soma me"
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Koma biara a abrε no Home wo dↄ honhom gu mu Ma yεn nya adedi wo mu Ne ahomegye a woahyε ho bↄ n’ Yi bↄne ho dↄ fi yεn mu Ne yεn afↄdi adesoa no Wie adwuma a woahyε ase no Fa yεn kↄ daa nkwa no mu."
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Akra a wɔw amaneɛ mu no resu pii \r\nNa ‘koma enni ahome no si apenee \r\nƐwɔ sɛ wɔnya me dɔ ne ayamhyehye \r\nMayɛ ahoboa me wura me nie soma me"
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Tumfoↄ Agya bra bεgye yεn Ma yεn nsa nka wo nkwa no San bra na bεtena yεn mu Ngya wo yεbεhyira wo daa daa Na yεasom wo sε soro dↄm no Yε de mpaebↄ ne ayεyi a εntwa da atena wo dↄ mu."
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Akra a ɛkɔm de wɔn su hwehwɛ aduane \r\nWɔrepre pɛ nkwa abodoo no adi \r\nSo ɛkɔm nne wɔn berɛ a aduane abu yi \r\nMe me nni nokorɛ, me nie soma me"
           },
           {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Afei wie woabↄde foforↄ Te yεn ho fi nkekae nyinaa ho Ma yεn nhu nkwagye kεse a Wo anya ama yεn no Sesa yεn kↄ wo anuonyam mu Ma soro nyε yεn tenabea Ma yεnto yεade ngu w’anim Wo dↄ ne ayeyi mu."
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Akra a bi rekyinkyin rekɔ mmusuo mu \r\nMe wura ɛnsɛ sɛ mɛgyae ma wɔn kɔ wu Ma me nkɔse wɔn sɛ mondane, ndwane \r\nMe wura mɛgye wɔn nkwa, me nie soma me"
           }
-        ]
+        ],
+        "chorus": "Me wo ha soma me\r\nMe wura me wo ha soma me\r\nMayε ahoboa me wura soma me"
       },
-      "variant_key": "qwerty",
-      "id": "0453bd63-36cb-4060-9613-add4bf804a3c",
+      "variant_key": "LORD SEND ME",
+      "id": "a25bf0f9-32d2-4821-bbea-54bec216de3e",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -5348,29 +5141,29 @@
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Mɛdu nnepa asase so Ɛhɔ ade nyinaa bɛyɛ me de Na ɛhɔ de ade nsa da Na mesum nyinaa bɛtwam akɔ"
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Mɛdu nnepa asase so \r\nƐhɔ ade nyinaa bɛyɛ me de \r\nNa ɛhɔ de ade nsa da \r\nNa mesum nyinaa bɛtwam akɔ"
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Agyenkwa no ne me nante Yɛnya ayɔnkofa dɛɛdɛ ha Ɔsɔ me nsa n’ɔdi manim Fisɛ ha yɛ soro hyeɛ so"
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Agyenkwa no ne me nante \r\nYɛnya ayɔnkofa dɛɛdɛ ha \r\nƆsɔ me nsa n’ɔdi manim \r\nFisɛ ha yɛ soro hyeɛ so"
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Duhwam bi wɔ mframa no mu Efi nnua a ɛtease daa so Nhwiren a wɔn ɔhoɔfɛ mpa da Ne ɛnkwa nsuo sen daa nyinaa"
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Duhwam bi wɔ mframa no mu \r\nEfi nnua a ɛtease daa so \r\nNhwiren a wɔn ɔhoɔfɛ mpa da \r\nNe ɛnkwa nsuo sen daa nyinaa"
           },
           {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Nnwomto dɛɛdɛ reba me nkyɛn Ɔsoro nnwom a ɛyɛ dɛ no Abɔfo hyɛ ntade fitaa Bom to nkwagye dwom dɛɛdɛ"
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Nnwomto dɛɛdɛ reba me nkyɛn \r\nƆsoro nnwom a ɛyɛ dɛ no \r\nAbɔfo hyɛ ntade fitaa \r\nBom to nkwagye dwom dɛɛdɛ"
           }
         ],
-        "chorus": "O Buelah man, ɔman fɛɛfɛ Berɛ a megyina wo mepɔ so Mahwɛ ɛpo no agya hɔ Bea a woasiesie adan ama me Mɛhu asuogya ɛhyerɛn hɔ Me soro ne me fie afebɔɔ"
+        "chorus": "O Buelah man, ɔman fɛɛfɛ \r\nBerɛ a megyina wo mepɔ so \r\nMahwɛ ɛpo no agya hɔ \r\nBea a woasiesie adan ama me \r\nMɛhu asuogya ɛhyerɛn hɔ \r\nMe soro ne me fie afebɔɔ"
       },
-      "variant_key": "poiuyt",
+      "variant_key": "BEULAH LAND",
       "id": "e6f56e09-2cd5-4bfa-abbf-ec667959c9c1",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
@@ -5380,56 +5173,24 @@
       "content": {
         "verses": [
           {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Kristo yεn gyefo wo sε ayeyi Anuonyam, nnidie ne tumi nso Wo fata yεn kra ntontom nyinaa ara Wofata yen wura, wofata pii"
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Kristo yεn gyefo wo sε ayeyi \r\nAnuonyam, nnidie ne tumi nso \r\nWo fata yεn kra ntontom nyinaa ara \r\nWofata yen wura, wofata pii"
           },
           {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Momma mo ne so ayeyi ne som mu Ahotefo nyinaa mo nkoto no Soro abↄfo nso nsom no nkasε Wofata yεn wura, wofata pii"
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Momma mo ne so ayeyi ne som mu \r\nAhotefo nyinaa mo nkoto no \r\nSoro abↄfo nso nsom no nkasε \r\nWofata yεn wura, wofata pii"
           },
           {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Yεn wura ma yεnfa nnwomto mmra w’anim Wo honhom, nyansa ne tum’nhyεyεn ma Ma yεn fa anonyam ne nnidie mma wo Wo fata yεn wura, wo fata pii."
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yεn wura ma yεnfa nnwomto mmra w’anim \r\nWo honhom, nyansa ne tum’nhyεyεn ma \r\nMa yεn fa anonyam ne nnidie mma wo \r\nWo fata yεn wura, wo fata pii."
           }
         ]
       },
-      "variant_key": "qwerty",
+      "variant_key": "WORTHY ART THOU",
       "id": "2f543e31-64b1-42ec-b406-ca11f3156630",
-      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
-    },
-    {
-      "title": "Owura Soma Me",
-      "number": 14,
-      "content": {
-        "verses": [
-          {
-            "verse_tag": "v1",
-            "verse_name": "1",
-            "verse_content": "Adwuma abu ‘dwuma wɔ hɔ ma obia Tie mmoa sufrɛ no gyegye baabiara Dɛn na me wura hwehwɛ Menia soma me"
-          },
-          {
-            "verse_tag": "v2",
-            "verse_name": "2",
-            "verse_content": "Akra a wɔw amaneɛ mu no resu pii Na ‘koma enni ahome no si apenee Ɛwɔ sɛ wɔnya me dɔ ne ayamhyehye Mayɛ ahoboa me wura me nie soma me"
-          },
-          {
-            "verse_tag": "v3",
-            "verse_name": "3",
-            "verse_content": "Akra a ɛkɔm de wɔn su hwehwɛ aduane Wɔrepre pɛ nkwa abodoo no adi So ɛkɔm nne wɔn berɛ a aduane abu yi Me me nni nokorɛ, me nie soma me"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Akra a bi rekyinkyin rekɔ mmusuo mu Me wura ɛnsɛ sɛ mɛgyae ma wɔn kɔ wu Ma me nkɔse wɔn sɛ mondane, ndwane Me wura mɛgye wɔn nkwa, me nie soma me"
-          }
-        ],
-        "chorus": "Fitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) Fitaa paa ara (Me pɛ m’ayɛ) Fitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) Fitaa paa ara"
-      },
-      "variant_key": "poiuyt",
-      "id": "a25bf0f9-32d2-4821-bbea-54bec216de3e",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
@@ -5465,45 +5226,782 @@
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
     },
     {
-      "title": "Brɛbrɛ Na ɛyɛ",
-      "number": 6,
+      "title": "TO WO BO YE KRONKRON",
+      "number": 29,
       "content": {
         "verses": [
           {
             "verse_tag": "v1",
             "verse_name": "1",
-            "verse_content": "Brɛbrɛ na ɛyɛ okristoni \nFa ntoboase yɛ woade nyinaa \nNyame na ɔse brɛbrɛ na ɛyɛ \nOkristoni ee brɛbrɛ na ɛyɛ"
+            "verse_content": "To w bo yɛ kronkron Ne wo wura nkasa Tena ne mu mmerɛ nyinaa Ma ne nsɛm nyɛn wo Fa Nyame ma nnamfo Boa wɔn a wɔagye mmerɛ Mma wo werɛ mfi biribiam’ sɛ W’ bɛhwehwɛ ne nhyira."
           },
           {
             "verse_tag": "v2",
             "verse_name": "2",
-            "verse_content": "Mma wobo mfu Okristoni \nFa ntoboase yɛ wade nyinaa \nNyame na ɔse mma wo bo mfu \nOkristoni ee mma wo bo mfu"
+            "verse_content": "To wo bo yɛ kronkron Wiase retwan kɔ Wo ne Yesu nko ntaa Nhyɛ kokooam mmerɛ pii Sɛ wo tena Yesu mu a Wo bɛyɛ sɛ ɔno Wo nnamfo bɛhu no Wɔ wabrabɔ mu"
           },
           {
             "verse_tag": "v3",
             "verse_name": "3",
-            "verse_content": "Kae mmra nsɛm no Okristoni \nNa bɔ mmɔden di so daa nyinaa \nNyame na ɔse Okristoni ee \nSɛ wodɔ me a di me mmra so"
-          },
-          {
-            "verse_tag": "v4",
-            "verse_name": "4",
-            "verse_content": "Gyae kɔkɔnsa n aka nokorɛ \nGyae nsekubɔ, gyae akayɔ \nNyame na ɔse gyae nkɔnkɔnsa \nOkristoni ee gyae nkɔnkɔnsa"
-          },
-          {
-            "verse_tag": "v5",
-            "verse_name": "5",
-            "verse_content": "Ma w’aniso na hwɛ soro hɔ \nNa kae hu sɛ wo Onyame nnae \nBɔne a yɛyɛ ohu ne nyinaa \nOkristoni ee di asɛmpa"
-          },
-          {
-            "verse_tag": "v6",
-            "verse_name": "6",
-            "verse_content": "Ɛnna rekɔ ɛnna reba \nNa kae hu sɛ wo nna rehi \n Ɔsoro hɔ wo wɔ akonta bi bu \nOkristoni ee ɔbra twa wu"
+            "verse_content": "To wo bo yɛ kronkron Ma wo kra nyɛ dinn Adwene ne nsusui bi a Fa hyɛ ne tumi’ ase Ma honhom no nni wanin Nkɔ dɔ abura ho Na ɛnkyɛ wobɛfata Adwuma wɔ soro."
           }
         ]
       },
       "variant_key": "qwerty",
+      "id": "62a003ff-c9ca-424c-b347-2142ac47edbb",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Asodie da me so",
+      "number": 88,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Asodie da me so \r\nSε mekamfo Nyame \r\nMεgye me kra a εnwu da nkwa \r\nMa εfata soro"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Asom mmeresanten yi \r\nAdi me dwuma no \r\nAnka me de made nyina \r\nMaye me wura Ne pɛ"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Ma menhwɛ me ho yiye \r\nTe sɛ me te wo nkyɛn \r\nMe wura,bɛboa wo somfoᴐ \r\nNa mabu akontaa pa"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Ma menwɛn memᴐ mpae \r\nNa mentwere Wo nko \r\nSɛ megoro m’adwuma ho a \r\nMewu wu a enni awiei"
+          }
+        ]
+      },
+      "variant_key": "A charge to keep I have",
+      "id": "e60f2258-e2de-4816-94d6-85b145fd3ddc",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "YERETU SA AKO ZION",
+      "number": 4,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Mo a modo Awurade\r\nMommra, mo ma mo ani ngye\r\nMonso mu nto nnwom a εyε dε\r\nMontwa ahennwa n’ho nhyia."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Won a wonnim Nyame\r\nWorento nnwom yi bi\r\nNa osoro hene no mma no deε\r\nNa osoro hene no mma no deε\r\nWobεka won anigye akyerε aman\r\nWobεka akyerε aman."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Zion kokoo kronkron no\r\nΕso nnipa mpempem\r\nSε yeduru so asase so\r\nSε yeduru soro asase so\r\nAnaa sikea morono no so\r\nSika norono no so."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Momma ndwom no nko so\r\nNa nisuo nyinaa new\r\nYεnam Emmanuel sase so 2×\r\nAko bea fεfε bi wo soro\r\nBea fεfε bi wo soro."
+          }
+        ],
+        "chorus": "Zion fεfε no\r\nYεretu sa ado Zion\r\nNyame kuro fεfε."
+      },
+      "variant_key": "WE’RE MARCHING TO ZION",
+      "id": "8ea6da9a-35d9-419c-9025-cfc6e194500b",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Me Kra Awia",
+      "number": 2,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Me kra awia m’Agyenkwa pa \r\nWo bεn m’ a ade nsa me da \r\nMma sum bi mfi asase yi so \r\nNhita wo mfi w’akoa ani so."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Sε εnna de ne bosuo no \r\nKa mani brεfoↄ yi gu soa \r\nMa mendwene dε a εbεyε \r\nSε mεhome m’Agyenkwa bom daa."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Wo ne me ntena adekyee mu \r\nWonni me nkyεn a mentumi ntena ase \r\nAde resa a wo ne me ntena \r\nWo ka me ho a mensuro wuo."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Sε yεnyane a bεhyira yεn \r\nAnsa na yε‘ afa yεn akwan so \r\nKosi sε ↄdↄ kεse no \r\nDe yεn bepue ↄsoro nohoaa."
+          }
+        ]
+      },
+      "variant_key": "SUN OF MY SOUL",
+      "id": "cb303a97-ce70-4b2f-9e5e-8e59b1c8893b",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Ɔdo Kronkron",
+      "number": 5,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "ɔdↄ kronkron εkyεn ‘dↄ biara \r\nSoro anigye aba fam ha \r\nFa yεn mu yε wo tenabea \r\nMa wo ahummↄbↄ nni mu \r\nYesu wo yε awerεkyekye \r\nWo yε dↄ a εnni ano \r\nFa wo nkwagye no bεsra yεn \r\nBεwura koma biara mu."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Koma biara a abrε no \r\nHome wo dↄ honhom gu mu \r\nMa yεn nya adedi wo mu \r\nNe ahomegye a woahyε ho bↄ n’ \r\nYi bↄne ho dↄ fi yεn mu \r\nNe yεn afↄdi adesoa no \r\nWie adwuma a woahyε ase no \r\nFa yεn kↄ daa nkwa no mu."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Tumfoↄ Agya bra bεgye yεn \r\nMa yεn nsa nka wo nkwa no \r\nSan bra na bεtena yεn mu \r\nNgya wo yεbεhyira wo daa daa \r\nNa yεasom wo sε soro dↄm no \r\nYε de mpaebↄ ne ayεyi a \r\nεntwa da atena wo dↄ mu."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Afei wie woabↄde foforↄ \r\nTe yεn ho fi nkekae nyinaa ho \r\nMa yεn nhu nkwagye kεse a \r\nWo anya ama yεn no \r\nSesa yεn kↄ wo anuonyam mu \r\nMa soro nyε yεn tenabea \r\nMa yεnto yεade ngu w’anim \r\nWo dↄ ne ayeyi mu."
+          }
+        ]
+      },
+      "variant_key": "LOVE DIVINE",
+      "id": "0453bd63-36cb-4060-9613-add4bf804a3c",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Brɛbrɛ Na ɛyɛ",
+      "number": 6,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Brɛbrɛ na ɛyɛ okristoni \r\nFa ntoboase yɛ woade nyinaa \r\nNyame na ɔse brɛbrɛ na ɛyɛ \r\nOkristoni ee brɛbrɛ na ɛyɛ"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Mma wobo mfu Okristoni \r\nFa ntoboase yɛ wade nyinaa \r\nNyame na ɔse mma wo bo mfu \r\nOkristoni ee mma wo bo mfu"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Kae mmra nsɛm no Okristoni \r\nNa bɔ mmɔden di so daa nyinaa \r\nNyame na ɔse Okristoni ee \r\nSɛ wodɔ me a di me mmra so"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Gyae kɔkɔnsa n aka nokorɛ \r\nGyae nsekubɔ, gyae akayɔ \r\nNyame na ɔse gyae nkɔnkɔnsa \r\nOkristoni ee gyae nkɔnkɔnsa"
+          },
+          {
+            "verse_tag": "V5",
+            "verse_name": "Verse 5",
+            "verse_content": "Ma w’aniso na hwɛ soro hɔ \r\nNa kae hu sɛ wo Onyame nnae \r\nBɔne a yɛyɛ ohu ne nyinaa \r\nOkristoni ee di asɛmpa"
+          },
+          {
+            "verse_tag": "V6",
+            "verse_name": "Verse 6",
+            "verse_content": "Ɛnna rekɔ ɛnna reba \r\nNa kae hu sɛ wo nna rehi \r\nƆsoro hɔ wo wɔ akonta bi bu \r\nOkristoni ee ɔbra twa wu"
+          }
+        ]
+      },
+      "variant_key": null,
       "id": "34c2396f-a72e-42d5-a8b2-7582e0127efb",
       "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Mεtie",
+      "number": 7,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Sɛ Agyenkwa no frɛ a mɛgye so \r\nSɛ ɔfrɛ me a mɛte ne nne \r\nSɛ Agyenkwa no frɛ a mɛgye so \r\nMɛgyina baabi na m’atie me din"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Sɛ makoma tene na ɔfrɛ me \r\nSɛ makoma tene a mɛte ne nne \r\nSɛ makoma tene na ɔfrɛ me \r\nMɛgyina baabi na matie me din"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Sɛ m’atade hyerɛn na ɔfrɛ me \r\nSɛ m’atade hyerɛn a mɛte ne nne \r\nSɛ m’atade hyerɛn na ɔfrɛ me \r\nMɛgyina baabi na matie me din"
+          }
+        ],
+        "chorus": "Mɛgyina baabi mεtie \r\nMɛgyina baabi mεtie \r\nMɛgyina baabi na mεtie me din"
+      },
+      "variant_key": "I’LL BE LISTENING",
+      "id": "660ef7cc-54d8-4b4d-966f-9c5c33f66e0f",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Wɔ Anim Hɔ",
+      "number": 9,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Sɔhwɛ ne haw taa gya yɛ’ adwendwen sɛ\r\nAdɛn na ɛwɔ sɛ ɛba saa mmerɛ nyinaa \r\nBerɛ a ɛbinom atwa yɛn ho ahyia\r\nWɔ yɛ bɔne nso haw nni wɔn so"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Sɛ owu ba bɛfa yɛ’adɔfo kɔ \r\nEgya awerɛhoɔ ne suro ye’afie mu \r\nNa ɛma yɛ dwene wɔn asi a asi wɔn yie ho \r\nSɛ wɔte bɔne mu mmerɛ nyinaa."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yɛn wura no si di nokware kɔ wuo mu \r\nYɛ adwuma twɛn nna kakra yi mu \r\nNa yɛrenmu ɔkwan mu suro no \r\nSɛ yɛhyɛn ɔpon fɛfɛ no mu a"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Sɛ yɛhu Yesu sɛ ɔba n’anuonyam \r\nSɛ ɔfi ne soro fie no mu ba a \r\nYɛbehyia no wɔ fie hyɛnhyɛn no mu \r\nԐnkyɛ bi yɛbɛte ne nyinaa ase"
+          }
+        ],
+        "chorus": "Anim hɔ yɛ bɛhu bribiara \r\nAnim hɔ yɛbɛte ne nyinaa ase \r\nMa w’ani nnye me nua, ka wo ho hye \r\nԐnkyɛ bi yɛbɛte ne nyinaa ase."
+      },
+      "variant_key": "FARTHER ALONG",
+      "id": "a7a987a3-531c-4964-bf51-218330feb285",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Munsuro kuo ketewa",
+      "number": 11,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Monsuro kuo ketewa \r\nAgyenkwa no aka sɛ \r\nAgya no de ahenie no bɛma mo \r\nMonnfa fam ha bɔne \r\nNsɛe mo ntade \r\nMe nnwan ho bɛyɛ fitaa sɛ sukyerɛma"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Fitaa paa ara mɛhyerɛn akyɛn adekyee \r\nFisɛ Kristo yɛ abura a ɛhoro bɔne \r\nO ɔbɔneyɛfo fa wadeso yi ma no \r\nNa fa wo haw nyinaa kɔka ne kuo no ho"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Odwan a ɔyerae wɔ bɔne abun mu no\r\nDwanhwɛfo no huu no de no baa efie \r\nNna aseda nnwom gyegye mmepɔ no so sɛ\r\nMayɔnkofo mahu dwan a ɔyɛrae no"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Twi fa sɔhwɛ so na gyae wo hu yi \r\nYesu yɛ wo ‘dwanhwɛfo, ne nsa yɛ ɔgye Ɔrenyaa wo da, ɔyɛ onua ne adamfo \r\nƆbɛdɔ wɔ agye wo wiase a ɛnni awieɛ no m’"
+          }
+        ],
+        "chorus": "Fitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) \r\nFitaa paa ara (Me pɛ m’ayɛ) \r\nFitaa paa ara (Me pɛ saa m’ayɛ Agyenkwa) \r\nFitaa paa ara (Fitaa paa ara)"
+      },
+      "variant_key": "Whiter Than the Snow",
+      "id": "2edf9344-cc53-467b-a782-a938810227d7",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "Awurade Adidi",
+      "number": 15,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Sɛ w’ahotefo de anigye \r\nBa wo pono ho a Awurade hyirafo \r\nSɛ wɔrebehia adidi \r\nDe akae wo wuo nwannwa no a \r\nWoa wɔn ho de anigye a \r\nƐsen fam ha de hyira wɔn"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Yɛ de ‘dɔ koma ne ayɛi ndwom \r\nApue wasure fie ha seisei \r\nYɛani gye sɛ yɛn nkwa naa nyinaa \r\nWo nti yɛkɔ ahummɔbɔ adwa anim \r\nNa yɛ’ Agya anim hɔ \r\nYɛ nya anigye wɔ akoma ne adwene mu"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Nyame adwamaa ɔdɔ adidi yi \r\n‘Yɔnkofa wɔ wo honam ne mogyam \r\nTwam adidi a ɛkorɔn sɛ \r\nWɔ dii aduan nwonwon no ntɛm so \r\nYɛn de yɛnni yea biara nnɛ \r\nWo mogya ayi ne nyinaa afi hɔ"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Yɛ bubu abodoo a ɛkasa kyerɛ yɛn \r\nAbodoo kronkron a \r\nWode ma sε εnyεn yεn kra\r\nNa yε nyε Agyenkwa wo de ampa\r\nWo ne nyɛ nkwa, ɔsoro abodoo \r\nNkwa a efi Agya no bom"
+          },
+          {
+            "verse_tag": "V5",
+            "verse_name": "Verse 5",
+            "verse_content": "Kuruwa a yɛnyira no! yɔnkofa dɛɛdɛ \r\nWo deɛ ɔde ne mogya horo yɛn ho no m’ \r\nNa ɔama yɛn afata n’anim, \r\nSɛ yɛtwam kɔ asuo n’akyi hɔ a \r\nYɛn wura yɛda wase dɔn fɛfɛ yi a \r\nƐkyerɛ wo nkwagye tumi nyinaa"
+          }
+        ]
+      },
+      "variant_key": null,
+      "id": "03427a6b-708a-4a16-9c03-bbdbb287092d",
+      "hymn_book_id": "2fffb326-b9b9-435b-ac61-7978bc3bd322"
+    },
+    {
+      "title": "All Hail the Power of Jesus' Name",
+      "number": 4,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "All hail the power of Jesus' name;\r\nLet angels prostrate fall\r\nLet angels prostrate fall\r\nThey bro’t the royal diadem\r\nAnd crown Him Lord of all"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Ye chosen seed of Israel’s race,\r\nYe ransomed from the fall,\r\nHail Him who saves you by His grace,\r\nThe crowned King Lord of all"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Let every kindred, every tribe\r\nOn this terrestrial ball,\r\nTo Him all majesty ascribe\r\nAnd praise Him, King of all"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "O that with yonder sacrd throng\r\nWe at His feet may fall\r\nWe’ll join the everlasting song\r\nAnd praise Him Judge of al"
+          }
+        ]
+      },
+      "variant_key": "All Hail the Power of Jesus' Name",
+      "id": "c889f96e-ee55-4afa-a882-bfcd4381383c",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "UPON THE FIRST DAY OF THE WEEK",
+      "number": 3,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Upon the first day of the week,\r\nOur Savior came forth from the grave,\r\nHe died, was buried, then arose,\r\nTo reign, to triumph, and to save!"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Upon the first day of the week,\r\nDisciples met to break the bread,\r\nAnd drink the cup in memory of Him\r\nWhose blood for us was shed"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Upon the first day of the week,\r\nLet each of us lay by in store,\r\nAs blessed and prospered by the Lord,\r\nThe King of Kings whom we adore"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Upon this day “beloved”\r\nJohn, saw Christ, and heard His trumpet voice\r\nWe, too , in spirit worship Him,\r\nWith pray’r and song our hearts rejoice."
+          }
+        ],
+        "chorus": "Though others may forsake the Lord,\r\nYet, we are here Thy truth to seek;\r\nThy holy presence comforts us,\r\nUpon the first day of the week."
+      },
+      "variant_key": "UPON THE FIRST DAY OF THE WEEK",
+      "id": "c57f02f3-365c-49d5-bd59-2ed30bce21e6",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "A charge to keep I have",
+      "number": 1,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "A charge to keep I have,\r\na God to glorify,\r\na never-dying soul to save,\r\nand fit it for the sky."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "To serve the present age,\r\nmy calling to fulfill,\r\nO may it all my pow'rs engage\r\nto do my Master's will!"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Arm me with watchful care\r\nas in Thy sight to live,\r\nand now Thy servant, Lord, prepare\r\na strict account to give!"
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Help me to watch and pray,\r\nand still on Thee rely,\r\nO let me not my trust betray,\r\nbut press to realms on high."
+          }
+        ]
+      },
+      "variant_key": "A charge to keep I have",
+      "id": "4a698102-1f8a-40a3-9efc-0044646953f0",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "SUN OF MY SOUL",
+      "number": 151,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Sun of my soul, thou Saviour dear,\r\nIt is not night if thou be near;\r\nO may no earth-born cloud arise\r\nTo hide thee from thy servant’s eyes"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "When the soft dews of kindly sleep\r\nMy wearied eye lids gently steep,\r\nBe my last tho’t, how sweet to rest,\r\nForever on my Saviour’s breast."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Abide with me from morn till eve,\r\nFor without thee I cannot live;\r\nAbide with me when night is nigh,\r\nFor without thee I dare not die."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Come near and bless us when we wake,\r\nEre thro’ the world our way we take;\r\nAbide with me when night is nigh,\r\nFor without thee I dare not die."
+          }
+        ]
+      },
+      "variant_key": "SUN OF MY SOUL",
+      "id": "0984a2a0-0f28-4db9-98ae-5dc5d12acdb1",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "BLEST BE THE TIE",
+      "number": 656,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Blest be the tie that binds\r\nOur hearts in Christian love\r\nThe fellowship of kindred minds\r\nIs like to that above."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Before our Father’s throne\r\nWe pour our ardent prayers;\r\nOur fears, our hopes, our aims are one\r\nOur comforts and our cares"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "We share our mutual woes,\r\nOur mutual burdens bear;\r\nAnd often for each other flows\r\nThe sympathizing tear."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "When we asunder part,\r\nIt gives us inward pain;\r\nBut we shall still be joined in heart,\r\nAnd hope to meet again."
+          }
+        ]
+      },
+      "variant_key": "BLEST BE THE TIE",
+      "id": "dcb8ebbb-d712-4583-8265-a2663d30a7a6",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "WE’RE MARCHING TO ZION",
+      "number": 2,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Come, we that love the Lord,\r\nAnd let our joys be known,\r\nJoin in a song with sweet accord,\r\nJoin in a song with sweet accord,\r\nAnd thus surround the throne\r\nAnd thus surround the throne."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Let those refuse to sing\r\nWho never knew our God;\r\nBut children of the heavenly King,\r\nBut children of the Heavenly King,\r\nMay speak their joys abroad,\r\nMay speak their joys abroad."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "The hill of Zion yields\r\nA thousand sacred sweets,\r\nBefore we reach the heavenly fields,\r\nBefore we reach the heav’nly fields\r\nOr walk the golden streets,\r\nOr walk the golden streets."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Then let our songs abound,\r\nAnd ev’ry tear be dry;\r\nWe’re marching thru Immanuel’s ground,\r\nWe’re marching thru Immanuel’s ground,\r\nTo fairer worlds on high, to fairer worlds on high."
+          }
+        ],
+        "chorus": "We’re marching to Zion, Beautiful, beautiful Zion;\r\nWe’re marching on to Zion, marching upward to Zion,\r\nThe beautiful city of God."
+      },
+      "variant_key": "WE’RE MARCHING TO ZION",
+      "id": "97b0b46f-2e7d-4bd3-ab39-5ac9fe7501fa",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "LOVE DIVINE",
+      "number": 260,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Love divine, all love excelling,\r\nJoy of heav’n, to earth come down\r\nFix in us Thy humble dwelling\r\nAll Thy faithful mercies crown\r\nJesus, Thou art all compassion,\r\nPure, unbounded love Thou art;\r\nVisit us with Thy salvation,\r\nEnter ev’ry trembling heart."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Breath, o breathe Thy loving Spirit\r\nInto ev’ry troubled breast;\r\nMay we all in Thee inherit\r\nMay we find the promised rest;\r\nTake away the love of sinning,\r\nTake our load of guilt away;\r\nEnd the work of Thy beginning,\r\nBring us to eternal day."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Come, almighty to deliver,\r\nMay we all Thy life receive;\r\nSuddenly return, and never,\r\nNever more Thy temples leave;\r\nThee we would be always blessing,\r\nServe Thee as Thy hosts above\r\nPray, and praise Thee, without ceasing,\r\nGlory in Thy perfect love."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Finish then Thy new creation,\r\nPure, unspotted, may we be;\r\nMay we see our whole salvation\r\nPerfectly secured by Thee;\r\nChanged form glory into glory,\r\nTill in heav’n we take our place,\r\nTill we cast our crowns before Thee,\r\nLost in wonder, love and praise"
+          }
+        ]
+      },
+      "variant_key": "LOVE DIVINE",
+      "id": "1c277d2c-a431-42ca-b9aa-0921f7cf027a",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "I’LL BE LISTENING",
+      "number": 352,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "When the Savior calls I will anser,\r\nWhen He calls for me I will hear;\r\nWhen the Savior calls I will answer,\r\nI’ll be somewhere list’ning for my name"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "If my heart is right when He calls me,\r\nIf my heart is right I will hear;\r\nIf my heart is right when He calls me,\r\nI’ll be somewhere list’ning for my name."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "If my robe is white when He calls me,\r\nIf my robe is white I will hear;\r\nIf my robe is white when He calls me,\r\nI’ll be somewhere list’ning for my name."
+          }
+        ],
+        "chorus": "I’ll be somewhere list’ning ,I’ll be somewhere list’ning\r\nI’ll be somewhere list’ning for my name\r\nYes, for my name;\r\nI’ll be somewhere list’ning, I’ll be somewhere list’ning\r\nI’ll be somewhere list’nin for my name."
+      },
+      "variant_key": "I’LL BE LISTENING",
+      "id": "3e0f56c1-a812-4482-ba3f-29a477dda85e",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "FARTHER ALONG",
+      "number": 404,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Tempted and tried we’re oft made to wonder\r\nWhy it should be thus all the day long,\r\nWhile there are others living about us,\r\nNever molested tho in the wrong,"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "When death has come and taken our loved ones,\r\nIt leaves our home so lonely and drear;\r\nThen do we wonder why others prosper,\r\nLiving so wicked year after year."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Faithful till death said our loving Master,\r\nA few more days to labor and wait;\r\nToils of the road will then seem as nothing,\r\nAs we sweep through the beautiful gate."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "When we see Jesus coming in glory,\r\nWhen He comes from His home in the sky;\r\nThen we shall meet Him in that bright mansion,\r\nWe’ll understand it all by and by."
+          }
+        ],
+        "chorus": "Farther along we’ll know all about it ,\r\nFarther along we’ll understand why;\r\nCheer up, my brother,live in the sunshine,\r\nWe’ll understand it all by and by."
+      },
+      "variant_key": "FARTHER ALONG",
+      "id": "c924159b-9b4f-46a3-8940-d2e08b97d973",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "Whiter Than the Snow",
+      "number": 550,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Fear not, little flock, says the Savior divine;\r\nThe Father has willed that the kingdom be thine;\r\nO soil not your garments with sin here below:\r\nMy sheep and my lambs must be whiter than snow."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Far whiter than snow, and as fair as the day,\r\nFor Christ is the fountain to wash guilt away;\r\nO give Him, poor sinner, that burden of thine,\r\nAnd enter the fold with the ninety-and-nine."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yon sheep, that was lost in the valley of sin,\r\nWas found by the Shepherd, who gathered him in;\r\nWith songs of thanksgiving the hills did resound,\r\n\"My friends and my neighbors, the lost sheep is found.\""
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "Ride over temptation and cease your alarms:\r\nYour Shepherd is Jesus, your refuge His arms;\r\nHe'll never forsake you, a Brother and Friend,\r\nBut love you and save you in worlds without end."
+          }
+        ],
+        "chorus": "Whiter (than) the snow, (I long to be, dear Savior,)\r\nWhiter (than) the snow, (I long to be,)\r\nWhiter (than) the snow, (I long to be, dear Savior,)\r\nWhiter than snow. (Whiter than the snow, Whiter than the snow.)"
+      },
+      "variant_key": "Whiter Than the Snow",
+      "id": "f47c1b11-2022-4e50-bfbd-e847368f6b54",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "TIS SO SWEET TO TRUST IN THE JESUS",
+      "number": 559,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Tis so sweet to trust in Jesus,\r\nJust to take Him at His word,\r\nJust to rest upon His promise;\r\nJust to know, thus saith the Lord;"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "O, how sweet to trust in Jesus,\r\nJust to trust His cleansing blood,\r\nJust in simple faith to plunge me\r\nNeath the healing cleansing flood."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Yes, tis sweet to trust in Jesus,\r\nJust from sin and self to cease;\r\nJust from Jesus simply taking Life,\r\nAnd rest, and joy, and peace."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "I’m so glad I learned to trust Thee,\r\nPrecious Jesus, Savior, Friend\r\nAnd I know that Thou art with me,\r\nWilt be with me to the end."
+          }
+        ],
+        "chorus": "Jesus, Jesus, how I trust Him;\r\nHow I’ve prov’d Him o’er and o’er;\r\nJesus, Jesus, Precious Jesus,\r\nO for grace to trust Him more."
+      },
+      "variant_key": "TIS SO SWEET",
+      "id": "5eba0a37-0ac4-4025-8d66-ecaac1298f66",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "BEULAH LAND",
+      "number": 395,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "I’ll reach the land of corn and wine,\r\nAnd all its riches freely mine;\r\nThere shines undimmed one blissful day,\r\nFor all my night will pass away."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "The Saviour comes and walks with me,\r\nAnd sweet communion here have we;\r\nHe gently leads me by the hand,\r\nFor this is heaven’s border land,"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "A sweet perfume upon the breeze,\r\nIs borne from ever vernal tree,\r\nAnd flow’rs that never fading grow,\r\nWhere streams of life forever flow."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "The zephyrs seem to float to me ,\r\nSweet sounds of heaven’s melody,\r\nAs angels with the white robed throng,\r\nJoin in the sweet redemption song."
+          }
+        ]
+      },
+      "variant_key": "BEULAH LAND",
+      "id": "0a426768-3cd7-4749-8a18-0bc830886811",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "WORTHY ART THOU",
+      "number": 5,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "Worthy of praise is Christ our Redeemer,\r\nWorthy of glory, honor and pow’r\r\nWorthy of all our souls and adoration,\r\nWorthy art Thou."
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "Lift up the voice in praise and devotion,\r\nSaints of all earth before Him should bow;\r\nAngels in heaven worship Him saying,\r\nWorthy art Thou"
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "Lord, may we come before Thee with singing,\r\nFilled with Thy spirit, wisdom and pow’r;\r\nMay we ascribe Thee glory and honor,\r\nWorthy art Thou."
+          }
+        ],
+        "chorus": "Worthy art Thou, worthy of riches, blessings and honor\r\nWorthy of wisdom, glory and pow’r\r\nWorthy of earth and heaven’s thanksgiving\r\nWorthy art Thou"
+      },
+      "variant_key": "WORTHY ART THOU",
+      "id": "84cf379b-49c1-4e74-b8e0-27b87638fd91",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "LORD SEND ME",
+      "number": 81,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "There is much to do, there’s work on every hand,\r\nHark! The cry for help comes ringing thru the land\r\nJesus calls for reapers, I must active be,\r\nWhat wilt Thou, O master?\r\nHere am I, ,send me"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "There’s the plaintive cry of mourning souls distressed,\r\nAnd the sigh of hearts who seek but find no rest;\r\nThese should have my love and tender sympathy,\r\nReady at Thy bidding, here am, I send me."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "There are hung’ ring souls, who cry aloud for bread,\r\nWith the bread of life they’re longing to be fed;\r\nShall they starve and famish while a feast is free?\r\nI must be more faithful, here am I, send me."
+          },
+          {
+            "verse_tag": "V4",
+            "verse_name": "Verse 4",
+            "verse_content": "There are souls, who linger on the brink of woe,\r\nLord, I must not, can no t bear to let them go;\r\nLet me go and tell them, brother, turn and flee;\r\nMaster, o would save them, here am I, send me."
+          }
+        ],
+        "chorus": "Her am I, Lord, send me,\r\nHere am I Lord, send me,\r\nReady at Thy bidding, Lord send me."
+      },
+      "variant_key": "LORD SEND ME",
+      "id": "2f85aa3f-b00f-4b1c-a7c2-489d10c1c508",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
+    },
+    {
+      "title": "SWEET BY AND BY",
+      "number": 399,
+      "content": {
+        "verses": [
+          {
+            "verse_tag": "V1",
+            "verse_name": "Verse 1",
+            "verse_content": "There’s a land that is fairer than day,\r\nAnd by faith we can see it afar\r\nFor the Savior waits over the way,\r\nTo prepare us a dwelling place there"
+          },
+          {
+            "verse_tag": "V2",
+            "verse_name": "Verse 2",
+            "verse_content": "We shall sing on that beautiful shore\r\nThe melodious songs of the blest\r\nAnd our spirits shall sorrow no more,\r\nNot a sigh for the blessings of rest."
+          },
+          {
+            "verse_tag": "V3",
+            "verse_name": "Verse 3",
+            "verse_content": "To our bountiful Father above,\r\nWe will offer our tribute of praise\r\nFor the glorious gift of His love,\r\nAnd the blessings that hallow our days."
+          }
+        ],
+        "chorus": "In the sweet by and by,\r\nWe shall meet on that beautiful shore,\r\nIn the sweet by and by,\r\nWe shall meet on the beautiful shore."
+      },
+      "variant_key": "SWEET BY AND BY",
+      "id": "330ce076-0a67-4323-91bc-fd91258fd1b8",
+      "hymn_book_id": "2adcc0be-fbd0-4087-ac13-34a044850507"
     }
   ]
 }

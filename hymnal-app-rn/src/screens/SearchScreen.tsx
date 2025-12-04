@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { getHymnMatchType } from '../utils/hymnUtils';
+
+// ... (inside SearchScreenComponent)
+
+
 import { View, FlatList, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { withDatabase } from '@nozbe/watermelondb/DatabaseProvider';
@@ -49,18 +54,38 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
 
     const navigation = useNavigation<any>();
 
+    const [isDeepSearch, setIsDeepSearch] = useState(false);
+
     const search = useCallback(async (reset = false) => {
         if (reset) {
             setLoading(true);
             setPage(0);
             setHasMore(true);
+            setIsDeepSearch(false);
         } else {
             setLoadingMore(true);
         }
 
         try {
             const skip = reset ? 0 : page * LIMIT;
-            const allMatches = await HymnService.searchHymns(query, selectedBookId || undefined).fetch();
+
+            // First try standard search
+            let allMatches = await HymnService.searchHymns(query, selectedBookId || undefined).fetch();
+            let deepSearchActive = false;
+
+            // If no results and query is present, try deep search
+            if (allMatches.length === 0 && query.trim().length > 0 && reset) {
+                allMatches = await HymnService.searchHymnsDeep(query, selectedBookId || undefined).fetch();
+                if (allMatches.length > 0) {
+                    deepSearchActive = true;
+                    setIsDeepSearch(true);
+                }
+            } else if (!reset && isDeepSearch) {
+                // Continue deep search for pagination
+                allMatches = await HymnService.searchHymnsDeep(query, selectedBookId || undefined).fetch();
+                deepSearchActive = true;
+            }
+
             const sliced = allMatches.slice(skip, skip + LIMIT);
             const data = sliced;
 
@@ -85,7 +110,7 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
             setLoading(false);
             setLoadingMore(false);
         }
-    }, [query, selectedBookId, page]);
+    }, [query, selectedBookId, page, isDeepSearch]);
 
     useEffect(() => {
         const delay = query === '' ? 0 : 500;
@@ -165,12 +190,20 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
                 <FlatList
                     data={results}
                     keyExtractor={(item, index) => `${item.id}-${index}`}
-                    renderItem={({ item }) => (
-                        <HymnRow
-                            hymn={item}
-                            onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
-                        />
-                    )}
+                    renderItem={({ item }) => {
+                        let matchType: 'verse' | 'chorus' | undefined;
+                        if (isDeepSearch) {
+                            matchType = getHymnMatchType(item, query);
+                        }
+
+                        return (
+                            <HymnRow
+                                hymn={item}
+                                onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
+                                matchType={matchType}
+                            />
+                        );
+                    }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}
                     ListFooterComponent={

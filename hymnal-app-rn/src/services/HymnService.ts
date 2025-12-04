@@ -43,6 +43,22 @@ export const HymnService = {
         );
     },
 
+    searchHymnsDeep: (query: string, bookId?: string) => {
+        const sanitizedQuery = Q.sanitizeLikeString(query);
+        const searchCondition = Q.where('content', Q.like(`%${sanitizedQuery}%`));
+
+        const conditions: any[] = [searchCondition];
+
+        if (bookId) {
+            conditions.push(Q.where('hymn_book_id', bookId));
+        }
+
+        return database.get<Hymn>('hymns').query(
+            ...conditions,
+            Q.sortBy('title', Q.asc)
+        );
+    },
+
     getVariants: (variantKey: string) => {
         return database.get<Hymn>('hymns').query(
             Q.where('variant_key', variantKey)
