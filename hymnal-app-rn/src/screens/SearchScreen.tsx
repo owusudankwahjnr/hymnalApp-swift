@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { getHymnMatchType } from '../utils/hymnUtils';
 
 // ... (inside SearchScreenComponent)
@@ -117,6 +118,16 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
         const timeout = setTimeout(() => search(true), delay);
         return () => clearTimeout(timeout);
     }, [query, selectedBookId]);
+
+    // Auto-focus search input when screen comes into focus
+    useFocusEffect(
+        useCallback(() => {
+            const timer = setTimeout(() => {
+                searchInputRef.current?.focus();
+            }, 100);
+            return () => clearTimeout(timer);
+        }, [])
+    );
 
     const [showFloatingSearch, setShowFloatingSearch] = useState(false);
 

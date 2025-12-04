@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
+import { toTitleCase } from '../utils/stringUtils';
 
 interface Props {
     hymn: Hymn;
@@ -17,7 +18,7 @@ export const HymnContent: React.FC<Props> = ({ hymn }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.title, { color: theme.text }]}>{hymn.title}</Text>
+            <Text style={[styles.title, { color: theme.text }]}>{toTitleCase(hymn.title)}</Text>
             <Text style={[styles.number, { color: theme.primary }]}>Hymn #{hymn.number}</Text>
 
             {verses

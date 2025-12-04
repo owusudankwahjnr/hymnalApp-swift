@@ -271,7 +271,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                                 source={require('../../assets/icon.png')}
                                                 style={styles.footerLogo}
                                             />
-                                            <Text style={[styles.footerText, { color: textColor }]}>Hymnal</Text>
+                                            <Text style={[styles.footerText, { color: textColor }]}>Hymnals</Text>
                                         </View>
                                     </View>
                                     {isSelected && (
@@ -323,7 +323,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                         source={require('../../assets/icon.png')}
                                         style={styles.footerLogo}
                                     />
-                                    <Text style={[styles.footerText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>Hymnal</Text>
+                                    <Text style={[styles.footerText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>Hymnals</Text>
                                 </View>
                             </View>
                         </ViewShot>

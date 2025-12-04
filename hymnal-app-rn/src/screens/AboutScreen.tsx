@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -44,10 +44,13 @@ export const AboutScreen = () => {
             <ScrollView contentContainerStyle={styles.content}>
                 {/* App Icon and Name */}
                 <View style={styles.heroSection}>
-                    <View style={[styles.appIconContainer, { backgroundColor: theme.primary, shadowColor: theme.primary }]}>
-                        <Ionicons name="musical-notes" size={64} color="#FFFFFF" />
+                    <View style={[styles.appIconContainer, { shadowColor: theme.primary }]}>
+                        <Image
+                            source={require('../../assets/icon.png')}
+                            style={styles.appIcon}
+                        />
                     </View>
-                    <Text style={[styles.appName, { color: theme.text }]}>Hymnal App</Text>
+                    <Text style={[styles.appName, { color: theme.text }]}>Hymnals</Text>
                     <Text style={[styles.tagline, { color: theme.textSecondary }]}>Your Digital Hymnal Companion</Text>
                 </View>
 
@@ -113,9 +116,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    container: {
-        flex: 1,
-    },
     content: {
         padding: SPACING.l,
     },
@@ -134,6 +134,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 16,
         elevation: 8,
+    },
+    appIcon: {
+        width: 120,
+        height: 120,
+        borderRadius: 30,
     },
     appName: {
         fontSize: 32,

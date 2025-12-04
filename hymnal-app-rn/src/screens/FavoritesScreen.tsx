@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { View, FlatList, StyleSheet, Text, TextInput } from 'react-native';
+import { View, FlatList, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { getHymnMatchType } from '../utils/hymnUtils';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import withObservables from '@nozbe/with-observables';
 import { Q } from '@nozbe/watermelondb';
 import { database } from '../db';
@@ -85,9 +86,27 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
                 }}
                 ListEmptyComponent={
                     <View style={styles.empty}>
-                        <Text style={[styles.emptyText, { color: theme.textSecondary }]}>
-                            {searchQuery ? 'No matches found' : 'No favorites yet'}
-                        </Text>
+                        {!searchQuery && (
+                            <>
+                                <View style={[styles.emptyIconContainer, { backgroundColor: `${theme.primary}15` }]}>
+                                    <Ionicons name="heart-outline" size={48} color={theme.primary} />
+                                </View>
+                                <Text style={[styles.emptyTitle, { color: theme.text }]}>No Favorites Yet</Text>
+                                <Text style={[styles.emptyText, { color: theme.textSecondary }]}>
+                                    Search for your favorite hymns
+                                </Text>
+                                <TouchableOpacity
+                                    style={[styles.searchButton, { backgroundColor: theme.primary }]}
+                                    onPress={() => (navigation as any).navigate('Search')}
+                                >
+                                    <Ionicons name="search" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
+                                    <Text style={styles.searchButtonText}>Search Hymns</Text>
+                                </TouchableOpacity>
+                            </>
+                        )}
+                        {searchQuery && (
+                            <Text style={[styles.emptyText, { color: theme.textSecondary }]}>No matches found</Text>
+                        )}
                     </View>
                 }
                 onScroll={handleScroll}
@@ -147,5 +166,34 @@ const styles = StyleSheet.create({
     },
     emptyText: {
         fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 8,
+    },
+    emptyIconContainer: {
+        width: 96,
+        height: 96,
+        borderRadius: 48,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: SPACING.l,
+    },
+    emptyTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: SPACING.s,
+        textAlign: 'center',
+    },
+    searchButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: SPACING.l,
+        paddingVertical: SPACING.m,
+        borderRadius: 12,
+        marginTop: SPACING.l,
+    },
+    searchButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });

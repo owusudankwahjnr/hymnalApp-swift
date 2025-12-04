@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        width: width * 0.6, // Adjust to match native splash size if possible, or just look good
-        height: width * 0.6,
+        width: 120,
+        height: 120,
+        borderRadius: 30,
     },
     bottomContainer: {
         paddingBottom: 40,

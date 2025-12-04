@@ -7,6 +7,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
 import HymnBook from '../db/models/HymnBook';
+import { toTitleCase } from '../utils/stringUtils';
 
 interface Props {
     hymn: Hymn;
@@ -48,7 +49,7 @@ const HymnRowComponent: React.FC<Props> = ({ hymn, hymnBook, onPress, matchType 
                         </View>
                     )}
                     <Text style={[styles.title, { color: theme.text }]} numberOfLines={1}>
-                        {hymn.title}
+                        {toTitleCase(hymn.title)}
                     </Text>
                     <Text style={[styles.subtitle, { color: theme.textSecondary }]} numberOfLines={1}>
                         {hymnBook?.title || ''}

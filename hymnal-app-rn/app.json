@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hymnal-app-rn",
-    "slug": "hymnal-app-rn",
+    "name": "Hymnals",
+    "slug": "Hymnals",
     "version": "1.0.0",
     "scheme": "hymnalapp",
     "orientation": "portrait",
