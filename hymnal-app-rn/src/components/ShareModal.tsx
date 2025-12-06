@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, Image, Pla
 import { Ionicons } from '@expo/vector-icons';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { SPACING, FONTS } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
@@ -17,9 +18,47 @@ interface Props {
 
 export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }) => {
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-    const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('dark');
+    // Defined color themes for preview
+    const PREVIEW_THEMES = [
+        { id: 'dark', bg: '#1A1A1A', text: '#FFFFFF', subText: '#AAAAAA' },
+        { id: 'light', bg: '#FFFFFF', text: '#000000', subText: '#666666' },
+        { id: 'navy', bg: '#0F172A', text: '#FFFFFF', subText: '#94A3B8' },
+        { id: 'sepia', bg: '#F5E6D3', text: '#4A3B2A', subText: '#8C7B6A' },
+        { id: 'forest', bg: '#1A2F1A', text: '#FFFFFF', subText: '#A3BFA3' },
+        { id: 'red', bg: '#3D0C0C', text: '#FFFFFF', subText: '#C4A3A3' },
+    ];
+    const [selectedThemeId, setSelectedThemeId] = useState<string>('dark');
+    const activeTheme = PREVIEW_THEMES.find(t => t.id === selectedThemeId) || PREVIEW_THEMES[0];
+
     const viewShotRef = useRef(null);
     const { theme } = useSettings();
+    const [interstitial, setInterstitial] = useState<any>(null);
+    const [adLoaded, setAdLoaded] = useState(false);
+
+    useEffect(() => {
+        const ad = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+            requestNonPersonalizedAdsOnly: true,
+        });
+
+        const unsubscribeLoaded = ad.addAdEventListener(AdEventType.LOADED, () => {
+            setAdLoaded(true);
+        });
+
+        const unsubscribeClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
+            // Reload or just clean up
+            setAdLoaded(false);
+            // Optionally reload for next time: ad.load(); 
+            // But since modal might close, we'll just let next open handle it if we want.
+        });
+
+        ad.load();
+        setInterstitial(ad);
+
+        return () => {
+            unsubscribeLoaded();
+            unsubscribeClosed();
+        };
+    }, []);
 
     // Set default selection to first verse when opening
     useEffect(() => {
@@ -34,7 +73,13 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
     const toggleSelection = (key: string) => {
         const newSelection = new Set(selectedKeys);
         if (newSelection.has(key)) {
-            newSelection.delete(key);
+            // Prevent deselecting if it's the last one
+            if (newSelection.size > 1) {
+                newSelection.delete(key);
+            } else {
+                // Feedback to user (optional toast or shake, but ignoring is standard for this pattern)
+                return;
+            }
         } else {
             newSelection.add(key);
         }
@@ -110,6 +155,19 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                     });
                 }
             }
+
+            // Show Interstitial Ad after share is done (or dismissed)
+            // This is the "Value Exchange" moment
+            if (adLoaded && interstitial) {
+                setTimeout(() => {
+                    try {
+                        interstitial.show();
+                    } catch (e) {
+                        console.log('Ad show failed', e);
+                    }
+                }, 500); // Small delay to allow share sheet to close completely
+            }
+
         } catch (error) {
             console.error(error);
             Alert.alert('Error', 'Could not share hymn.');
@@ -223,86 +281,20 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
 
                     <Text style={[styles.sectionTitle, { color: theme.text }]}>Preview</Text>
 
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.previewScrollContent}
-                        style={styles.previewScroll}
-                    >
-                        {['dark', 'light'].map((mode) => {
-                            const isSelected = previewTheme === mode;
-                            const isDark = mode === 'dark';
-                            const bgColor = isDark ? '#1A1A1A' : '#FFFFFF';
-                            const textColor = isDark ? '#FFFFFF' : '#000000';
-                            const subTextColor = isDark ? '#AAAAAA' : '#666666';
-
-                            return (
-                                <TouchableOpacity
-                                    key={mode}
-                                    onPress={() => setPreviewTheme(mode as 'light' | 'dark')}
-                                    activeOpacity={0.9}
-                                    style={[
-                                        styles.previewWrapper,
-                                        isSelected && { borderColor: theme.primary, borderWidth: 2, transform: [{ scale: 1.02 }] }
-                                    ]}
-                                >
-                                    <View style={[styles.shareCard, { backgroundColor: bgColor, width: 280 }]}>
-                                        <View style={styles.cardHeader}>
-                                            <View>
-                                                <Text style={[styles.cardTitle, { color: textColor }]} numberOfLines={1}>{hymn.title}</Text>
-                                                <Text style={[styles.cardSubtitle, { color: subTextColor }]}>Hymn #{hymn.number}</Text>
-                                            </View>
-                                            <View style={styles.logoContainer}>
-                                                <Image
-                                                    source={require('../../assets/icon.png')}
-                                                    style={styles.logo}
-                                                />
-                                            </View>
-                                        </View>
-
-                                        <View style={styles.cardBody}>
-                                            <Text style={[styles.lyricsText, { color: textColor, fontSize: 16, lineHeight: 24 }]} numberOfLines={20}>
-                                                {selectedContent}
-                                            </Text>
-                                        </View>
-
-                                        <View style={styles.cardFooter}>
-                                            <Image
-                                                source={require('../../assets/icon.png')}
-                                                style={styles.footerLogo}
-                                            />
-                                            <Text style={[styles.footerText, { color: textColor }]}>Hymnals</Text>
-                                        </View>
-                                    </View>
-                                    {isSelected && (
-                                        <View style={[styles.checkmarkBadge, { backgroundColor: theme.primary }]}>
-                                            <Ionicons name="checkmark" size={16} color="#FFFFFF" />
-                                        </View>
-                                    )}
-                                </TouchableOpacity>
-                            );
-                        })}
-                    </ScrollView>
-
-                    {/* Hidden Capture View (Square) */}
-                    {/* On Android, 'left: -10000' can cause the view to not render. 
-                        Using 'collapsable={false}' and ensuring it's technically in the view hierarchy helps. 
-                        Or we can use opacity: 0 but position it absolutely. */}
-                    <View
-                        collapsable={false}
-                        style={{
-                            position: 'absolute',
-                            left: -10000,
-                            top: 0,
-                            opacity: 1, // Must be 1 for capture to work reliably on some Android versions
-                        }}
-                    >
-                        <ViewShot ref={viewShotRef} options={{ format: 'jpg', quality: 0.9 }}>
-                            <View style={[styles.shareCard, { borderRadius: 0, backgroundColor: previewTheme === 'dark' ? '#1A1A1A' : '#FFFFFF' }]}>
+                    <View style={styles.previewContainer}>
+                        {/* Single Preview Card with Active Theme */}
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            style={[
+                                styles.previewWrapper,
+                                { borderColor: theme.border }
+                            ]}
+                        >
+                            <View style={[styles.shareCard, { backgroundColor: activeTheme.bg, width: 280 }]}>
                                 <View style={styles.cardHeader}>
                                     <View>
-                                        <Text style={[styles.cardTitle, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>{hymn.title}</Text>
-                                        <Text style={[styles.cardSubtitle, { color: previewTheme === 'dark' ? '#AAAAAA' : '#666666' }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
+                                        <Text style={[styles.cardTitle, { color: activeTheme.text }]} numberOfLines={1}>{hymn.title}</Text>
+                                        <Text style={[styles.cardSubtitle, { color: activeTheme.subText }]}>Hymn #{hymn.number}</Text>
                                     </View>
                                     <View style={styles.logoContainer}>
                                         <Image
@@ -313,7 +305,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                 </View>
 
                                 <View style={styles.cardBody}>
-                                    <Text style={[styles.lyricsText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>
+                                    <Text style={[styles.lyricsText, { color: activeTheme.text, fontSize: 16, lineHeight: 24 }]} numberOfLines={20}>
                                         {selectedContent}
                                     </Text>
                                 </View>
@@ -323,7 +315,71 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                         source={require('../../assets/icon.png')}
                                         style={styles.footerLogo}
                                     />
-                                    <Text style={[styles.footerText, { color: previewTheme === 'dark' ? '#FFFFFF' : '#000000' }]}>Hymnals</Text>
+                                    <Text style={[styles.footerText, { color: activeTheme.text }]}>Hymnals</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Color Circles Selector */}
+                    <View style={styles.colorSelector}>
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.colorList}>
+                            {PREVIEW_THEMES.map((t) => {
+                                const isSelected = selectedThemeId === t.id;
+                                return (
+                                    <TouchableOpacity
+                                        key={t.id}
+                                        onPress={() => setSelectedThemeId(t.id)}
+                                        style={[
+                                            styles.colorCircle,
+                                            { backgroundColor: t.bg, borderColor: isSelected ? theme.primary : theme.border },
+                                            isSelected && styles.colorCircleSelected
+                                        ]}
+                                    >
+                                        {isSelected && <Ionicons name="checkmark" size={16} color={t.text} />}
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
+
+                    {/* Hidden Capture View (Uses Active Theme) */}
+                    <View
+                        collapsable={false}
+                        style={{
+                            position: 'absolute',
+                            left: -10000,
+                            top: 0,
+                            opacity: 1,
+                        }}
+                    >
+                        <ViewShot ref={viewShotRef} options={{ format: 'jpg', quality: 0.9 }}>
+                            <View style={[styles.shareCard, { borderRadius: 0, backgroundColor: activeTheme.bg }]}>
+                                <View style={styles.cardHeader}>
+                                    <View>
+                                        <Text style={[styles.cardTitle, { color: activeTheme.text }]}>{hymn.title}</Text>
+                                        <Text style={[styles.cardSubtitle, { color: activeTheme.subText }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
+                                    </View>
+                                    <View style={styles.logoContainer}>
+                                        <Image
+                                            source={require('../../assets/icon.png')}
+                                            style={styles.logo}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={styles.cardBody}>
+                                    <Text style={[styles.lyricsText, { color: activeTheme.text }]}>
+                                        {selectedContent}
+                                    </Text>
+                                </View>
+
+                                <View style={styles.cardFooter}>
+                                    <Image
+                                        source={require('../../assets/icon.png')}
+                                        style={styles.footerLogo}
+                                    />
+                                    <Text style={[styles.footerText, { color: activeTheme.text }]}>Hymnals</Text>
                                 </View>
                             </View>
                         </ViewShot>
@@ -398,12 +454,7 @@ const styles = StyleSheet.create({
     },
     previewContainer: {
         alignItems: 'center',
-        marginBottom: SPACING.xl,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 16,
-        elevation: 8,
+        marginBottom: 40, // Increased from SPACING.xl
     },
     shareCard: {
         width: 320,
@@ -493,13 +544,6 @@ const styles = StyleSheet.create({
         paddingBottom: SPACING.m,
         paddingTop: SPACING.m,
     },
-    previewWrapper: {
-        marginRight: SPACING.m,
-        borderRadius: 26,
-        borderWidth: 2,
-        borderColor: 'transparent',
-        position: 'relative',
-    },
     checkmarkBadge: {
         position: 'absolute',
         top: -8,
@@ -511,5 +555,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 2,
         borderColor: '#FFFFFF',
+    },
+    colorSelector: {
+        marginBottom: 40, // Increased from SPACING.xl
+    },
+    colorList: {
+        paddingHorizontal: SPACING.m,
+        paddingVertical: 12, // More breathing room
+        alignItems: 'center',
+    },
+    colorCircle: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        marginHorizontal: 10, // Slightly more space
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    colorCircleSelected: {
+        transform: [{ scale: 1.1 }],
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 4,
+    },
+    // Ensure previewWrapper doesn't rely on scrollview content container
+    previewWrapper: {
+        borderRadius: 26,
+        borderWidth: 1, // subtle border
+        borderColor: 'transparent',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.15,
+        shadowRadius: 24,
+        elevation: 8,
     },
 });

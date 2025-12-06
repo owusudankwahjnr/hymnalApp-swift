@@ -17,6 +17,7 @@ import { SkeletonLoader } from '../components/SkeletonLoader';
 import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import HymnBook from '../db/models/HymnBook';
+import { AdBannerWrapper } from '../components/AdBannerWrapper';
 
 const LIMIT = 20;
 
@@ -234,10 +235,13 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
                     contentContainerStyle={styles.list}
                 />
             )}
+            {/* Floating Search Button */}
             <FloatingSearchButton
                 visible={showFloatingSearch}
                 onPress={handleFloatingSearchPress}
             />
+
+            <AdBannerWrapper />
         </View>
     );
 };

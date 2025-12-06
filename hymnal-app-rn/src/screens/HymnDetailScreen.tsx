@@ -33,14 +33,24 @@ const HymnDetailScreenComponent: React.FC<Props> = ({ hymn, hymnBook, variants }
     const { theme } = useSettings();
 
     React.useLayoutEffect(() => {
-        if (hymnBook) {
+        if (hymn && hymnBook) {
             navigation.setOptions({
-                title: hymnBook.title,
+                headerTitle: () => (
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', color: theme.text }} numberOfLines={1}>
+                            {hymn.title}
+                        </Text>
+                        <Text style={{ fontSize: 12, color: theme.textSecondary }} numberOfLines={1}>
+                            Hymn #{hymn.number} • {hymnBook.title}
+                        </Text>
+                    </View>
+                ),
                 headerStyle: { backgroundColor: theme.background },
                 headerTintColor: theme.text,
+                headerShadowVisible: true,
             });
         }
-    }, [navigation, hymnBook, theme]);
+    }, [navigation, hymn, hymnBook, theme]);
 
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     // Use hymn.id from prop

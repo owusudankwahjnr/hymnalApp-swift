@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SPACING, FONTS } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import { ReportModal } from '../components/ReportModal';
+import { AdBannerWrapper } from '../components/AdBannerWrapper';
 
 export const SettingsScreen = () => {
     const navigation = useNavigation();
@@ -128,6 +129,7 @@ export const SettingsScreen = () => {
                 visible={showReport}
                 onClose={() => setShowReport(false)}
             />
+            <AdBannerWrapper />
         </SafeAreaView>
     );
 };

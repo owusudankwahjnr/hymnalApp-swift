@@ -54,6 +54,10 @@ export const TermsScreen = () => {
             title: '8. Modifications',
             content: 'We may revise these terms of service for the app at any time without notice. By using this app you are agreeing to be bound by the then current version of these terms of service.',
         },
+        {
+            title: '9. Advertising & Monetization',
+            content: 'This application uses Google AdMob to display advertisements. These ads help support the development and maintenance of the app. Google may use advertising IDs to serve personalized or non-personalized ads based on your location and interests. By using this app, you consent to the display of such advertisements.',
+        },
     ];
 
     return (

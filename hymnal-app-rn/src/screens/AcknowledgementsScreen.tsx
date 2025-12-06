@@ -24,19 +24,9 @@ export const AcknowledgementsScreen = () => {
             title: 'Hymn Books',
             items: [
                 {
-                    name: 'Kristo Asore Nnwom',
-                    description: 'A collection of traditional Twi hymns used in Christian worship across Ghana and beyond.',
-                    source: 'Public Domain',
-                },
-                {
-                    name: 'Sacred Selections',
-                    description: 'Classic hymns and spiritual songs for Christian worship and devotion.',
-                    source: 'Public Domain',
-                },
-                {
-                    name: 'COC Chorus',
-                    description: 'Contemporary worship songs and choruses.',
-                    source: 'Public Domain',
+                    name: 'Hymn Collections',
+                    description: 'A comprehensive collection of hymns and spiritual songs compiled from various standard denominational hymn books and public domain sources used in Christian worship.',
+                    source: 'Various Collections',
                 },
             ],
         },

@@ -12,6 +12,7 @@ import { SearchBar } from '../components/SearchBar';
 import { SPACING } from '../constants/theme';
 import { useFavorites } from '../context/FavoritesContext';
 import { useSettings } from '../context/SettingsContext';
+import { AdBannerWrapper } from '../components/AdBannerWrapper';
 
 interface Props {
     hymns: Hymn[];
@@ -113,6 +114,7 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
                 scrollEventThrottle={16}
                 contentContainerStyle={styles.list}
             />
+            <AdBannerWrapper />
         </View>
     );
 };

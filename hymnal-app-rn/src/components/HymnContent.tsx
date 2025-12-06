@@ -18,8 +18,6 @@ export const HymnContent: React.FC<Props> = ({ hymn }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.title, { color: theme.text }]}>{toTitleCase(hymn.title)}</Text>
-            <Text style={[styles.number, { color: theme.primary }]}>Hymn #{hymn.number}</Text>
 
             {verses
                 .sort((a: any, b: any) => {

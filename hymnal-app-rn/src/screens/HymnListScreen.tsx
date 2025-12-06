@@ -12,8 +12,23 @@ import { FloatingSearchButton } from '../components/FloatingSearchButton';
 import { SkeletonLoader } from '../components/SkeletonLoader';
 import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
+import { AdBannerWrapper } from '../components/AdBannerWrapper';
+import { NativeAdRow } from '../components/NativeAdRow';
 
 const LIMIT = 20;
+const AD_FREQUENCY = 10; // Show ad every 10 hymns for visibility in demo
+
+const injectAds = (items: any[], startIndex: number) => {
+    const withAds = [];
+    for (let i = 0; i < items.length; i++) {
+        withAds.push(items[i]);
+        // Inject ad if (globalIndex + 1) is divisible by AD_FREQUENCY
+        if ((startIndex + i + 1) % AD_FREQUENCY === 0) {
+            withAds.push({ type: 'ad', id: `ad-${startIndex + i}` });
+        }
+    }
+    return withAds;
+};
 
 export const HymnListScreen = () => {
     const [query, setQuery] = useState('');
@@ -62,15 +77,22 @@ export const HymnListScreen = () => {
             }
 
             const sliced = allMatches.slice(skip, skip + LIMIT);
-            const data = sliced;
+
+            // Calculate starting index for this page (or 0 if reset)
+            const currentCount = reset ? 0 : results.length;
+            // Note: If we just append ads to the slice, we might mess up if we assume 'currentCount' tracks hymns only.
+            // But for simple "every N items in the list", using the list length is roughly fine.
+            // Ideally we track 'hymnCount'.
+
+            const dataWithAds = injectAds(sliced, currentCount);
 
             if (reset) {
-                setResults(data);
+                setResults(dataWithAds);
             } else {
-                setResults(prev => [...prev, ...data]);
+                setResults(prev => [...prev, ...dataWithAds]);
             }
 
-            if (data.length < LIMIT) {
+            if (sliced.length < LIMIT) {
                 setHasMore(false);
             }
 
@@ -140,17 +162,16 @@ export const HymnListScreen = () => {
             ) : (
                 <FlatList
                     data={results}
-                    keyExtractor={(item, index) => `${item.id}-${index}`}
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
-                        let matchType: 'verse' | 'chorus' | undefined;
-                        if (isDeepSearch) {
-                            matchType = getHymnMatchType(item, query);
+                        if (item.type === 'ad') {
+                            return <NativeAdRow />;
                         }
                         return (
                             <HymnRow
                                 hymn={item}
                                 onPress={() => navigation.navigate('HymnDetail', { hymnId: item.id })}
-                                matchType={matchType}
+                                matchType={isDeepSearch ? getHymnMatchType(item, query) : undefined}
                             />
                         );
                     }}
@@ -173,10 +194,13 @@ export const HymnListScreen = () => {
                     contentContainerStyle={styles.list}
                 />
             )}
+            {/* Floating Search Button */}
             <FloatingSearchButton
                 visible={showFloatingSearch}
                 onPress={handleFloatingSearchPress}
             />
+
+            <AdBannerWrapper />
         </View>
     );
 };

@@ -116,7 +116,7 @@ export const RootNavigator = () => {
                     name="HymnDetail"
                     component={HymnDetailScreen}
                     options={{
-                        title: 'Hymn Detail',
+                        title: '',
                         headerBackTitle: 'Back',
                         gestureEnabled: true,
                     }}

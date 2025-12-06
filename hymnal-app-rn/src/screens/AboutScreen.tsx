@@ -87,6 +87,7 @@ export const AboutScreen = () => {
                             { icon: 'share-social-outline' as keyof typeof Ionicons.glyphMap, text: 'Share Hymns' },
                             { icon: 'moon-outline' as keyof typeof Ionicons.glyphMap, text: 'Dark Mode Support' },
                             { icon: 'library-outline' as keyof typeof Ionicons.glyphMap, text: 'Multiple Hymn Books' },
+                            { icon: 'layers-outline' as keyof typeof Ionicons.glyphMap, text: 'Variant Support' },
                         ].map((feature, index) => (
                             <View key={index} style={styles.featureItem}>
                                 <View style={[styles.featureIcon, { backgroundColor: `${theme.primary}15` }]}>
