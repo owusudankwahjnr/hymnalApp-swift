@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const lightTheme = {
     primary: '#007AFF', // iOS Blue
     secondary: '#5856D6', // iOS Indigo
@@ -36,7 +38,7 @@ export const SPACING = {
 };
 
 export const FONTS = {
-    regular: 'System',
-    medium: 'System-Medium', // iOS specific, RN handles it
-    bold: 'System-Bold',
+    regular: Platform.select({ ios: 'Avenir Next', android: 'serif' }) || 'serif',
+    medium: Platform.select({ ios: 'Avenir Next', android: 'sans-serif-condensed' }) || 'serif',
+    bold: Platform.select({ ios: 'Avenir Next', android: 'sans-serif-medium' }) || 'serif',
 };

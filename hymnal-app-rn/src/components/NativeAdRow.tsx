@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useSettings } from '../context/SettingsContext';
-import { SPACING, FONTS } from '../constants/theme';
+import { SPACING } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // Note: True Native Ads require a lot of native setup. 
 // For "Native-like" ads using standard ad networks (like AdMob's Native Advanced), 
@@ -19,23 +21,25 @@ import { Ionicons } from '@expo/vector-icons';
 
 export const NativeAdRow: React.FC = () => {
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.card, borderColor: theme.border }]}>
-            <View style={styles.adBadge}>
-                <Text style={styles.adText}>Ad</Text>
+        <View style={[styles.container, { borderColor: palette.border }]}>
+            <LinearGradient colors={palette.rowGradient} style={StyleSheet.absoluteFill} pointerEvents="none" />
+            <View style={[styles.adBadge, { backgroundColor: palette.surfaceMuted, borderColor: palette.border }]}>
+                <Text style={[styles.adText, { color: palette.textMuted }]}>Sponsor</Text>
             </View>
 
             <View style={styles.content}>
-                <Text style={[styles.title, { color: theme.text }]}>
+                <Text style={[styles.title, { color: palette.text }]}>
                     Discover Premium Features
                 </Text>
-                <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
+                <Text style={[styles.subtitle, { color: palette.textMuted }]}>
                     Support the developer by upgrading
                 </Text>
             </View>
 
-            <Ionicons name="open-outline" size={20} color={theme.textSecondary} />
+            <Ionicons name="open-outline" size={18} color={palette.textMuted} />
         </View>
     );
 };
@@ -47,34 +51,31 @@ const styles = StyleSheet.create({
         padding: SPACING.m,
         marginHorizontal: SPACING.m,
         marginBottom: SPACING.s,
-        borderRadius: 12,
+        borderRadius: 20,
         borderWidth: 1,
-        // Make it slightly distinct but seamless
-        opacity: 0.9,
+        overflow: 'hidden',
     },
     adBadge: {
-        backgroundColor: '#f0ad4e', // subtle orange/gold
         paddingHorizontal: 6,
         paddingVertical: 2,
         borderRadius: 4,
         marginRight: SPACING.m,
+        borderWidth: 1,
     },
     adText: {
         fontSize: 10,
         fontWeight: 'bold',
-        color: '#FFFFFF',
     },
     content: {
         flex: 1,
     },
     title: {
         fontSize: 16,
-        fontWeight: 'bold',
-        fontFamily: FONTS.bold,
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: 2,
     },
     subtitle: {
         fontSize: 12,
-        fontFamily: FONTS.regular,
+        fontFamily: MUSIC_FONTS.body,
     },
 });

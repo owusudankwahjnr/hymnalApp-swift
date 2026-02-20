@@ -18,6 +18,11 @@ export default class Hymn extends Model {
     @field('hymn_book_id') hymnBookId!: string;
     @field('variant_key') variantKey?: string;
     @field('content') content!: string; // Stored as JSON string
+    @field('audio_url') audioUrl?: string;
+    @field('duration') duration?: number;
+    @field('artist') artist?: string;
+    @field('album_art') albumArt?: string;
+    @field('lyrics') lyrics?: string;
 
     @relation('hymn_books', 'hymn_book_id') hymnBook!: any; // Type as Relation<HymnBook>
 

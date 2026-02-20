@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
 
 interface Props {
     value: string;
@@ -12,17 +13,18 @@ interface Props {
 
 export const SearchBar = React.forwardRef<TextInput, Props>(({ value, onChangeText, placeholder = 'Search hymns...' }, ref) => {
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.mode === 'dark' ? '#2C2C2E' : '#E5E5EA' }]}>
-            <Ionicons name="search" size={20} color={theme.textSecondary} style={styles.icon} />
+        <View style={[styles.container, { backgroundColor: palette.glass, borderColor: palette.border }]}>
+            <Ionicons name="search" size={20} color={palette.textMuted} style={styles.icon} />
             <TextInput
                 ref={ref}
-                style={[styles.input, { color: theme.text }]}
+                style={[styles.input, { color: palette.text, fontFamily: MUSIC_FONTS.body }]}
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
-                placeholderTextColor={theme.textSecondary}
+                placeholderTextColor={palette.textMuted}
                 clearButtonMode="while-editing"
                 keyboardAppearance={theme.mode === 'dark' ? 'dark' : 'light'}
             />
@@ -34,17 +36,19 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 10,
-        paddingHorizontal: SPACING.s,
-        height: 36,
-        margin: SPACING.m,
+        borderRadius: 16,
+        paddingHorizontal: SPACING.m,
+        paddingVertical: Platform.OS === 'android' ? 6 : 8,
+        minHeight: 48,
+        borderWidth: 1,
     },
     icon: {
         marginRight: SPACING.xs,
+        marginLeft: SPACING.xs,
     },
     input: {
         flex: 1,
         fontSize: 16,
-        height: '100%',
+        paddingVertical: SPACING.s,
     },
 });

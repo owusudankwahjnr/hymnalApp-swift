@@ -28,7 +28,10 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.owusudankwahjnr.hymnalapprn"
+      "package": "com.owusudankwahjnr.hymnalapprn",
+      "navigationBar": {
+        "visible": "hidden"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

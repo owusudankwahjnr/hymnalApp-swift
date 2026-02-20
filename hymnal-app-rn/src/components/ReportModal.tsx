@@ -8,6 +8,9 @@ import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
 import HymnBook from '../db/models/HymnBook';
+import { LinearGradient } from 'expo-linear-gradient';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
+import { MusicBackground } from './MusicBackground';
 
 interface Props {
     visible: boolean;
@@ -22,6 +25,7 @@ const ReportModalComponent: React.FC<Props> = ({ visible, onClose, hymn, hymnBoo
     const [reportType, setReportType] = useState<ReportType>('hymn_issue');
     const [description, setDescription] = useState('');
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     const handleSend = async () => {
         const subject = reportType === 'hymn_issue'
@@ -71,126 +75,137 @@ App Version: 1.0.0
             onRequestClose={onClose}
         >
             <KeyboardAvoidingView
-                style={[{ flex: 1 }, { backgroundColor: theme.background }]}
+                style={[{ flex: 1 }, { backgroundColor: palette.background }]}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
             >
-                <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }} edges={['top', 'bottom']}>
-                    <View style={[styles.container, { backgroundColor: theme.background }]}>
-                        <View style={[styles.header, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
-                            <Text style={[styles.headerTitle, { color: theme.text }]}>Report an Issue</Text>
-                            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                                <Ionicons name="close-circle" size={30} color={theme.textSecondary} />
-                            </TouchableOpacity>
-                        </View>
-
-                        <KeyboardAwareScrollView
-                            style={{ flex: 1 }}
-                            contentContainerStyle={styles.content}
-                            enableOnAndroid={true}
-                            enableAutomaticScroll={true}
-                            extraScrollHeight={Platform.OS === 'ios' ? 200 : 250}
-                            keyboardShouldPersistTaps="handled"
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <Text style={[styles.sectionTitle, { color: theme.text }]}>What's the issue?</Text>
-                            <View style={styles.typeContainer}>
-                                <TouchableOpacity
-                                    style={[
-                                        styles.typeCard,
-                                        { backgroundColor: theme.card },
-                                        reportType === 'hymn_issue' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
-                                    ]}
-                                    onPress={() => setReportType('hymn_issue')}
-                                    disabled={!hymn}
-                                >
-                                    <View style={[
-                                        styles.iconCircle,
-                                        { backgroundColor: theme.background },
-                                        reportType === 'hymn_issue' && { backgroundColor: `${theme.primary}15` }
-                                    ]}>
-                                        <Ionicons
-                                            name="musical-notes"
-                                            size={24}
-                                            color={reportType === 'hymn_issue' ? theme.primary : theme.textSecondary}
-                                        />
-                                    </View>
-                                    <Text style={[
-                                        styles.typeTitle,
-                                        { color: theme.text },
-                                        reportType === 'hymn_issue' && { color: theme.primary }
-                                    ]}>
-                                        Hymn Content
-                                    </Text>
-                                    <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
-                                        Typos, wrong lyrics, or missing verses.
-                                    </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={[
-                                        styles.typeCard,
-                                        { backgroundColor: theme.card },
-                                        reportType === 'app_bug' && { borderColor: theme.primary, backgroundColor: `${theme.primary}05` }
-                                    ]}
-                                    onPress={() => setReportType('app_bug')}
-                                >
-                                    <View style={[
-                                        styles.iconCircle,
-                                        { backgroundColor: theme.background },
-                                        reportType === 'app_bug' && { backgroundColor: `${theme.primary}15` }
-                                    ]}>
-                                        <Ionicons
-                                            name="bug"
-                                            size={24}
-                                            color={reportType === 'app_bug' ? theme.primary : theme.textSecondary}
-                                        />
-                                    </View>
-                                    <Text style={[
-                                        styles.typeTitle,
-                                        { color: theme.text },
-                                        reportType === 'app_bug' && { color: theme.primary }
-                                    ]}>
-                                        App Bug
-                                    </Text>
-                                    <Text style={[styles.typeDescription, { color: theme.textSecondary }]}>
-                                        Crashes, glitches, or feedback.
-                                    </Text>
+                <MusicBackground variant="player" style={{ flex: 1 }}>
+                    <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+                        <View style={styles.container}>
+                            <View style={[styles.header, { borderBottomColor: palette.divider, backgroundColor: palette.glassStrong }]}>
+                                <Text style={[styles.headerTitle, { color: palette.text }]}>Report an Issue</Text>
+                                <TouchableOpacity onPress={onClose} style={[styles.closeButton, { backgroundColor: palette.glassStrong }]}>
+                                    <Ionicons name="close" size={20} color={palette.textMuted} />
                                 </TouchableOpacity>
                             </View>
 
-                            {hymn && reportType === 'hymn_issue' && (
-                                <View style={[styles.hymnPreview, { backgroundColor: theme.card }]}>
-                                    <Ionicons name="document-text-outline" size={20} color={theme.textSecondary} />
-                                    <View style={{ marginLeft: 12 }}>
-                                        <Text style={[styles.previewTitle, { color: theme.text }]}>{hymn.title}</Text>
-                                        <Text style={[styles.previewSubtitle, { color: theme.textSecondary }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
-                                    </View>
+                            <KeyboardAwareScrollView
+                                style={{ flex: 1 }}
+                                contentContainerStyle={styles.content}
+                                enableOnAndroid={true}
+                                enableAutomaticScroll={true}
+                                extraScrollHeight={Platform.OS === 'ios' ? 200 : 250}
+                                keyboardShouldPersistTaps="handled"
+                                showsVerticalScrollIndicator={false}
+                            >
+                                <Text style={[styles.sectionTitle, { color: palette.text }]}>What's the issue?</Text>
+                                <View style={styles.typeContainer}>
+                                    <TouchableOpacity
+                                        style={[
+                                            styles.typeCard,
+                                            { borderColor: reportType === 'hymn_issue' ? palette.accent : palette.border },
+                                            !hymn && styles.typeCardDisabled,
+                                        ]}
+                                        onPress={() => setReportType('hymn_issue')}
+                                        disabled={!hymn}
+                                    >
+                                        <LinearGradient
+                                            colors={reportType === 'hymn_issue' ? [palette.accent + '26', palette.accentSecondary + '20'] : palette.rowGradient}
+                                            style={StyleSheet.absoluteFill}
+                                            pointerEvents="none"
+                                        />
+                                        <View style={[
+                                            styles.iconCircle,
+                                            { backgroundColor: reportType === 'hymn_issue' ? palette.accent + '25' : palette.glass }
+                                        ]}>
+                                            <Ionicons
+                                                name="musical-notes"
+                                                size={22}
+                                                color={reportType === 'hymn_issue' ? palette.accent : palette.textMuted}
+                                            />
+                                        </View>
+                                        <Text style={[
+                                            styles.typeTitle,
+                                            { color: reportType === 'hymn_issue' ? palette.accent : palette.text }
+                                        ]}>
+                                            Hymn Content
+                                        </Text>
+                                        <Text style={[styles.typeDescription, { color: palette.textMuted }]}>
+                                            Typos, wrong lyrics, or missing verses.
+                                        </Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                        style={[
+                                            styles.typeCard,
+                                            { borderColor: reportType === 'app_bug' ? palette.accentSecondary : palette.border },
+                                        ]}
+                                        onPress={() => setReportType('app_bug')}
+                                    >
+                                        <LinearGradient
+                                            colors={reportType === 'app_bug' ? [palette.accentSecondary + '26', palette.accent + '20'] : palette.rowGradient}
+                                            style={StyleSheet.absoluteFill}
+                                            pointerEvents="none"
+                                        />
+                                        <View style={[
+                                            styles.iconCircle,
+                                            { backgroundColor: reportType === 'app_bug' ? palette.accentSecondary + '25' : palette.glass }
+                                        ]}>
+                                            <Ionicons
+                                                name="bug"
+                                                size={22}
+                                                color={reportType === 'app_bug' ? palette.accentSecondary : palette.textMuted}
+                                            />
+                                        </View>
+                                        <Text style={[
+                                            styles.typeTitle,
+                                            { color: reportType === 'app_bug' ? palette.accentSecondary : palette.text }
+                                        ]}>
+                                            App Bug
+                                        </Text>
+                                        <Text style={[styles.typeDescription, { color: palette.textMuted }]}>
+                                            Crashes, glitches, or feedback.
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
-                            )}
 
-                            <Text style={[styles.sectionTitle, { color: theme.text }]}>Details</Text>
-                            <TextInput
-                                style={[styles.input, { backgroundColor: theme.card, color: theme.text, borderColor: theme.border }]}
-                                placeholder="Please describe the issue in detail..."
-                                placeholderTextColor={theme.textSecondary}
-                                multiline
-                                numberOfLines={6}
-                                value={description}
-                                onChangeText={setDescription}
-                                textAlignVertical="top"
-                                keyboardAppearance={theme.mode === 'dark' ? 'dark' : 'light'}
-                            />
+                                {hymn && reportType === 'hymn_issue' && (
+                                    <View style={[styles.hymnPreview, { borderColor: palette.border }]}>
+                                        <LinearGradient colors={palette.cardGradient} style={StyleSheet.absoluteFill} pointerEvents="none" />
+                                        <View style={[styles.previewIcon, { backgroundColor: palette.accent + '20' }]}>
+                                            <Ionicons name="document-text-outline" size={18} color={palette.accent} />
+                                        </View>
+                                        <View style={{ marginLeft: 12 }}>
+                                            <Text style={[styles.previewTitle, { color: palette.text }]}>{hymn.title}</Text>
+                                            <Text style={[styles.previewSubtitle, { color: palette.textMuted }]}>Hymn #{hymn.number} • {hymnBook?.title}</Text>
+                                        </View>
+                                    </View>
+                                )}
 
-                            <TouchableOpacity style={[styles.sendButton, { backgroundColor: theme.primary, shadowColor: theme.primary }]} onPress={handleSend}>
-                                <Text style={styles.sendButtonText}>Send Report</Text>
-                                <Ionicons name="paper-plane" size={20} color="#FFFFFF" style={{ marginLeft: 8 }} />
-                            </TouchableOpacity>
+                                <Text style={[styles.sectionTitle, { color: palette.text }]}>Details</Text>
+                                <TextInput
+                                    style={[styles.input, { backgroundColor: palette.glassStrong, color: palette.text, borderColor: palette.border }]}
+                                    placeholder="Please describe the issue in detail..."
+                                    placeholderTextColor={palette.textMuted}
+                                    multiline
+                                    numberOfLines={6}
+                                    value={description}
+                                    onChangeText={setDescription}
+                                    textAlignVertical="top"
+                                    keyboardAppearance={theme.mode === 'dark' ? 'dark' : 'light'}
+                                />
 
-                            <View style={{ height: Platform.OS === 'ios' ? 150 : 200 }} />
-                        </KeyboardAwareScrollView>
-                    </View>
-                </SafeAreaView>
+                                <TouchableOpacity style={[styles.sendButton, { shadowColor: palette.shadow }]} onPress={handleSend}>
+                                    <LinearGradient colors={[palette.accent, palette.accentSecondary]} style={StyleSheet.absoluteFill} />
+                                    <Text style={styles.sendButtonText}>Send Report</Text>
+                                    <Ionicons name="paper-plane" size={18} color="#FFFFFF" style={{ marginLeft: 8 }} />
+                                </TouchableOpacity>
+
+                                <View style={{ height: Platform.OS === 'ios' ? 150 : 200 }} />
+                            </KeyboardAwareScrollView>
+                        </View>
+                    </SafeAreaView>
+                </MusicBackground>
             </KeyboardAvoidingView>
         </Modal>
     );
@@ -213,17 +228,21 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.display,
     },
     closeButton: {
-        padding: 4,
+        width: 32,
+        height: 32,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     content: {
         padding: SPACING.l,
     },
     sectionTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.m,
         marginTop: SPACING.s,
     },
@@ -235,10 +254,13 @@ const styles = StyleSheet.create({
     typeCard: {
         flex: 1,
         padding: SPACING.m,
-        borderRadius: 16,
-        borderWidth: 2,
-        borderColor: 'transparent',
+        borderRadius: 18,
+        borderWidth: 1,
         alignItems: 'flex-start',
+        overflow: 'hidden',
+    },
+    typeCardDisabled: {
+        opacity: 0.5,
     },
     iconCircle: {
         width: 40,
@@ -250,37 +272,49 @@ const styles = StyleSheet.create({
     },
     typeTitle: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: 4,
     },
     typeDescription: {
         fontSize: 12,
         lineHeight: 16,
+        fontFamily: MUSIC_FONTS.body,
     },
     hymnPreview: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: SPACING.m,
-        borderRadius: 12,
+        borderRadius: 16,
         marginBottom: SPACING.l,
+        borderWidth: 1,
+        overflow: 'hidden',
+    },
+    previewIcon: {
+        width: 36,
+        height: 36,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     previewTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
     },
     previewSubtitle: {
         fontSize: 14,
+        fontFamily: MUSIC_FONTS.body,
     },
     input: {
-        borderRadius: 16,
+        borderRadius: 18,
         padding: SPACING.m,
         height: 150,
         fontSize: 16,
         marginBottom: SPACING.xl,
         borderWidth: 1,
+        fontFamily: MUSIC_FONTS.body,
     },
     sendButton: {
-        borderRadius: 16,
+        borderRadius: 18,
         padding: SPACING.l,
         flexDirection: 'row',
         alignItems: 'center',
@@ -289,10 +323,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 6,
+        overflow: 'hidden',
     },
     sendButtonText: {
         color: '#FFFFFF',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.ui,
     },
 });

@@ -16,7 +16,7 @@ async function fetchData() {
 
         for (const book of books) {
             console.log(`Fetching hymns for book: ${book.title}...`);
-            const hymnsResponse = await fetch(`${API_URL}/hymnal/hymn_books/${book.id}/hymns?limit=1000`);
+            const hymnsResponse = await fetch(`${API_URL}/hymnal/hymn_books/${book.id}/hymns?limit=10000`);
             const hymnsSummaries = await hymnsResponse.json();
 
             // Fetch full details for each hymn

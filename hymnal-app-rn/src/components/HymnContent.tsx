@@ -4,13 +4,16 @@ import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
 import { toTitleCase } from '../utils/stringUtils';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
 
 interface Props {
     hymn: Hymn;
+    fontSize?: number;
 }
 
-export const HymnContent: React.FC<Props> = ({ hymn }) => {
+export const HymnContent: React.FC<Props> = ({ hymn, fontSize = 20 }) => {
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
     // Use the getter from the model which handles JSON parsing
     const content = hymn.parsedContent;
     const verses = content.verses || [];
@@ -18,6 +21,10 @@ export const HymnContent: React.FC<Props> = ({ hymn }) => {
 
     return (
         <View style={styles.container}>
+            <View style={[styles.header, { borderColor: palette.divider }]}>
+                <Text style={[styles.title, { color: palette.text }]}>{toTitleCase(hymn.title)}</Text>
+                <Text style={[styles.number, { color: palette.textMuted }]}>Hymn {hymn.number}</Text>
+            </View>
 
             {verses
                 .sort((a: any, b: any) => {
@@ -29,11 +36,11 @@ export const HymnContent: React.FC<Props> = ({ hymn }) => {
                     return a.verse_name.localeCompare(b.verse_name);
                 })
                 .map((verse: any, index: number) => (
-                    <View key={index} style={styles.section}>
-                        <Text style={[styles.verseTag, { color: theme.textSecondary }]}>
+                    <View key={index} style={[styles.section, { backgroundColor: palette.glassStrong, borderColor: palette.border }]}>
+                        <Text style={[styles.verseTag, { color: palette.textMuted }]}>
                             {verse.verse_tag.toUpperCase()}
                         </Text>
-                        <Text style={[styles.lyrics, { color: theme.text }]}>
+                        <Text style={[styles.lyrics, { color: palette.text, fontSize: fontSize, lineHeight: fontSize * 1.6 }]}>
                             {verse.verse_content}
                         </Text>
 
@@ -42,12 +49,12 @@ export const HymnContent: React.FC<Props> = ({ hymn }) => {
                             <View style={[
                                 styles.chorusContainer,
                                 {
-                                    backgroundColor: theme.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
-                                    borderLeftColor: theme.primary
+                                    backgroundColor: palette.surface,
+                                    borderLeftColor: palette.border
                                 }
                             ]}>
-                                <Text style={[styles.chorusLabel, { color: theme.primary }]}>Chorus</Text>
-                                <Text style={[styles.chorusLyrics, { color: theme.text }]}>
+                                <Text style={[styles.chorusLabel, { color: palette.textMuted }]}>Chorus</Text>
+                                <Text style={[styles.chorusLyrics, { color: palette.text, fontSize: fontSize, lineHeight: fontSize * 1.6 }]}>
                                     {chorus}
                                 </Text>
                             </View>
@@ -63,9 +70,15 @@ const styles = StyleSheet.create({
         padding: SPACING.l,
         paddingBottom: 120, // Extra space for bottom actions
     },
+    header: {
+        alignItems: 'center',
+        marginBottom: SPACING.xl,
+        paddingBottom: SPACING.m,
+        borderBottomWidth: 1,
+    },
     title: {
         fontSize: 28,
-        fontWeight: '800',
+        fontFamily: MUSIC_FONTS.display,
         textAlign: 'center',
         marginBottom: SPACING.xs,
         letterSpacing: -0.5,
@@ -73,15 +86,18 @@ const styles = StyleSheet.create({
     number: {
         fontSize: 18,
         textAlign: 'center',
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.xl,
     },
     section: {
         marginBottom: SPACING.xl,
+        padding: SPACING.l,
+        borderRadius: 18,
+        borderWidth: 1,
     },
     verseTag: {
         fontSize: 14,
-        fontWeight: '700',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.s,
         textAlign: 'center',
         opacity: 0.6,
@@ -90,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 32,
         textAlign: 'center',
-        fontWeight: '400',
+        fontFamily: MUSIC_FONTS.body,
     },
     chorusContainer: {
         marginTop: SPACING.xl,
@@ -100,7 +116,7 @@ const styles = StyleSheet.create({
     },
     chorusLabel: {
         fontSize: 14,
-        fontWeight: '700',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.s,
         textTransform: 'uppercase',
         letterSpacing: 1,
@@ -108,6 +124,7 @@ const styles = StyleSheet.create({
     chorusLyrics: {
         fontSize: 20,
         lineHeight: 32,
+        fontFamily: MUSIC_FONTS.body,
         fontStyle: 'italic',
         textAlign: 'left',
     },

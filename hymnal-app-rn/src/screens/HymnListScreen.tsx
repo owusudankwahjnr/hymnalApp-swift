@@ -14,11 +14,16 @@ import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import { AdBannerWrapper } from '../components/AdBannerWrapper';
 import { NativeAdRow } from '../components/NativeAdRow';
+import { ENABLE_ADS } from '../constants/Ads';
+import { MusicBackground } from '../components/MusicBackground';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
 
 const LIMIT = 20;
 const AD_FREQUENCY = 10; // Show ad every 10 hymns for visibility in demo
 
 const injectAds = (items: any[], startIndex: number) => {
+    if (!ENABLE_ADS) return items;
+
     const withAds = [];
     for (let i = 0; i < items.length; i++) {
         withAds.push(items[i]);
@@ -39,6 +44,7 @@ export const HymnListScreen = () => {
     const [page, setPage] = useState(0);
     const searchInputRef = useRef<any>(null);
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
@@ -147,8 +153,9 @@ export const HymnListScreen = () => {
     );
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <View style={[styles.searchContainer, { backgroundColor: theme.background }]}>
+        <MusicBackground>
+        <View style={styles.container}>
+            <View style={styles.searchContainer}>
                 <SearchBar
                     ref={searchInputRef}
                     value={query}
@@ -186,7 +193,7 @@ export const HymnListScreen = () => {
                     }
                     ListEmptyComponent={
                         <View style={styles.empty}>
-                            <Text style={[styles.emptyText, { color: theme.textSecondary }]}>No hymns found</Text>
+                            <Text style={[styles.emptyText, { color: palette.textMuted }]}>No hymns found</Text>
                         </View>
                     }
                     onScroll={handleScroll}
@@ -202,6 +209,7 @@ export const HymnListScreen = () => {
 
             <AdBannerWrapper />
         </View>
+        </MusicBackground>
     );
 };
 
@@ -216,7 +224,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     list: {
-        paddingBottom: 100,
+        paddingBottom: 120,
+        paddingTop: SPACING.s,
     },
     skeletonContainer: {
         padding: SPACING.m,
@@ -235,5 +244,6 @@ const styles = StyleSheet.create({
     },
     emptyText: {
         fontSize: 16,
+        fontFamily: MUSIC_FONTS.body,
     },
 });

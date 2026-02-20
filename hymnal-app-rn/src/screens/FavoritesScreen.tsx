@@ -13,6 +13,8 @@ import { SPACING } from '../constants/theme';
 import { useFavorites } from '../context/FavoritesContext';
 import { useSettings } from '../context/SettingsContext';
 import { AdBannerWrapper } from '../components/AdBannerWrapper';
+import { MusicBackground } from '../components/MusicBackground';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
 
 interface Props {
     hymns: Hymn[];
@@ -23,6 +25,7 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
     const [searchQuery, setSearchQuery] = useState('');
     const searchInputRef = useRef<TextInput>(null);
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     // Sort hymns based on the order in favorites array (reversed for latest first)
     const sortedHymns = [...hymns].sort((a, b) => {
@@ -55,12 +58,13 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
     };
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <View style={[styles.header, { backgroundColor: theme.background }]}>
-                <Text style={[styles.title, { color: theme.text }]}>Favorites</Text>
+        <MusicBackground>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={[styles.subtitle, { color: palette.textMuted }]}>Quick access to the hymns you love</Text>
             </View>
 
-            <View style={[styles.searchContainer, { backgroundColor: theme.background }]}>
+            <View style={styles.searchContainer}>
                 <SearchBar
                     ref={searchInputRef}
                     value={searchQuery}
@@ -89,24 +93,24 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
                     <View style={styles.empty}>
                         {!searchQuery && (
                             <>
-                                <View style={[styles.emptyIconContainer, { backgroundColor: `${theme.primary}15` }]}>
-                                    <Ionicons name="heart-outline" size={48} color={theme.primary} />
+                                <View style={[styles.emptyIconContainer, { backgroundColor: palette.surfaceMuted, borderColor: palette.border }]}>
+                                    <Ionicons name="heart-outline" size={48} color={palette.textMuted} />
                                 </View>
-                                <Text style={[styles.emptyTitle, { color: theme.text }]}>No Favorites Yet</Text>
-                                <Text style={[styles.emptyText, { color: theme.textSecondary }]}>
+                                <Text style={[styles.emptyTitle, { color: palette.text }]}>No Favorites Yet</Text>
+                                <Text style={[styles.emptyText, { color: palette.textMuted }]}>
                                     Search for your favorite hymns
                                 </Text>
                                 <TouchableOpacity
-                                    style={[styles.searchButton, { backgroundColor: theme.primary }]}
+                                    style={[styles.searchButton, { backgroundColor: palette.surface, borderColor: palette.border }]}
                                     onPress={() => (navigation as any).navigate('Search')}
                                 >
-                                    <Ionicons name="search" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
-                                    <Text style={styles.searchButtonText}>Search Hymns</Text>
+                                    <Ionicons name="search" size={20} color={palette.text} style={{ marginRight: 8 }} />
+                                    <Text style={[styles.searchButtonText, { color: palette.text }]}>Search Hymns</Text>
                                 </TouchableOpacity>
                             </>
                         )}
                         {searchQuery && (
-                            <Text style={[styles.emptyText, { color: theme.textSecondary }]}>No matches found</Text>
+                            <Text style={[styles.emptyText, { color: palette.textMuted }]}>No matches found</Text>
                         )}
                     </View>
                 }
@@ -116,6 +120,7 @@ const FavoritesScreenComponent: React.FC<Props & { favorites: string[] }> = ({ h
             />
             <AdBannerWrapper />
         </View>
+        </MusicBackground>
     );
 };
 
@@ -155,7 +160,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 34,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.display,
+    },
+    subtitle: {
+        fontSize: 14,
+        fontFamily: MUSIC_FONTS.body,
+        marginTop: 6,
     },
     list: {
         paddingBottom: 100,
@@ -170,6 +180,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 8,
+        fontFamily: MUSIC_FONTS.body,
     },
     emptyIconContainer: {
         width: 96,
@@ -178,10 +189,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: SPACING.l,
+        borderWidth: 1,
     },
     emptyTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.headline,
         marginBottom: SPACING.s,
         textAlign: 'center',
     },
@@ -192,10 +204,10 @@ const styles = StyleSheet.create({
         paddingVertical: SPACING.m,
         borderRadius: 12,
         marginTop: SPACING.l,
+        borderWidth: 1,
     },
     searchButtonText: {
-        color: '#FFFFFF',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
     },
 });

@@ -11,6 +11,11 @@ export default class HymnBook extends Model {
     @field('title') title!: string;
     @field('thumbnail_path') thumbnailPath?: string;
     @field('hymn_count') hymnCount?: number;
+    @field('is_pinned') isPinned!: boolean;
+    @field('artist') artist?: string;
+    @field('description') description?: string;
+    @field('genre') genre?: string;
 
     @children('hymns') hymns!: any; // Type as Relation<Hymn> if using TS strict
 }
+

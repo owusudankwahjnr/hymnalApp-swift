@@ -1,13 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, Image, Platform, Share, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, Image, Platform, Share, Alert, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
-import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-import { SPACING, FONTS } from '../constants/theme';
+import * as Haptics from 'expo-haptics';
+import * as Clipboard from 'expo-clipboard';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
+import { AD_UNITS, ENABLE_ADS } from '../constants/Ads';
+import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import Hymn from '../db/models/Hymn';
 import HymnBook from '../db/models/HymnBook';
+import { LinearGradient } from 'expo-linear-gradient';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
+import { MusicBackground } from './MusicBackground';
 
 interface Props {
     visible: boolean;
@@ -30,13 +37,20 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
     const [selectedThemeId, setSelectedThemeId] = useState<string>('dark');
     const activeTheme = PREVIEW_THEMES.find(t => t.id === selectedThemeId) || PREVIEW_THEMES[0];
 
+    // Calculate Pro Width: wider but with breathing room, capped max width
+    const SCREEN_WIDTH = Dimensions.get('window').width;
+    const CARD_WIDTH = Math.min(SCREEN_WIDTH - 48, 420);
+
     const viewShotRef = useRef(null);
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
     const [interstitial, setInterstitial] = useState<any>(null);
     const [adLoaded, setAdLoaded] = useState(false);
 
     useEffect(() => {
-        const ad = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+        if (!ENABLE_ADS) return;
+
+        const ad = InterstitialAd.createForAdRequest(AD_UNITS.INTERSTITIAL, {
             requestNonPersonalizedAdsOnly: true,
         });
 
@@ -83,6 +97,10 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
         } else {
             newSelection.add(key);
         }
+        
+        // Add haptic feedback for pro feel
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        
         setSelectedKeys(newSelection);
     };
 
@@ -174,69 +192,92 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
         }
     };
 
+    const [shareFormat, setShareFormat] = useState<'image' | 'text' | 'both'>('image');
+    
+    // Animation for Format Selector
+    const formatTranslateX = useSharedValue(0);
+    const SELECTOR_PADDING = 4;
+    const SELECTOR_WIDTH = SCREEN_WIDTH - (SPACING.l * 2);
+    const TAB_WIDTH = (SELECTOR_WIDTH - (SELECTOR_PADDING * 2)) / 3;
+
+    useEffect(() => {
+        const index = shareFormat === 'image' ? 0 : shareFormat === 'text' ? 1 : 2;
+        formatTranslateX.value = withSpring(index * TAB_WIDTH, {
+            damping: 20,
+            stiffness: 180,
+            mass: 0.8,
+        });
+    }, [shareFormat, TAB_WIDTH]);
+
+    const animatedPillStyle = useAnimatedStyle(() => ({
+        transform: [{ translateX: formatTranslateX.value }],
+    }));
+
+    const handleFormatChange = (format: 'image' | 'text' | 'both') => {
+        if (format !== shareFormat) {
+            setShareFormat(format);
+            Haptics.selectionAsync(); // Light haptic for switching
+        }
+    };
     const handleSharePress = () => {
         if (selectedKeys.size === 0) {
             Alert.alert('Selection Required', 'Please select at least one verse or chorus to share.');
             return;
         }
 
-        if (selectedKeys.size > 1) {
-            if (Platform.OS === 'ios') {
-                Alert.alert(
-                    'Share Options',
-                    'How would you like to share?',
-                    [
-                        { text: 'Text Only', onPress: () => performShare('text') },
-                        { text: 'Image Only', onPress: () => performShare('image') },
-                        { text: 'Text & Image', onPress: () => performShare('both') },
-                        { text: 'Cancel', style: 'cancel' },
-                    ]
-                );
-            } else {
-                // Android supports max 3 buttons in Alert
-                Alert.alert(
-                    'Share Options',
-                    'How would you like to share?',
-                    [
-                        { text: 'Text Only', onPress: () => performShare('text') },
-                        { text: 'Image Only', onPress: () => performShare('image') },
-                        { text: 'Text & Image', onPress: () => performShare('both') },
-                    ],
-                    { cancelable: true }
-                );
-            }
-        } else {
-            // Default behavior for single selection (Both/Image)
-            performShare('both');
+        // Direct Share using selected format
+        performShare(shareFormat);
+    };
+
+    const handleShareLink = async () => {
+        try {
+            const deepLink = `hymnalapp://hymn/${hymn.id}`;
+            const hymnTitle = `Hymn #${hymn.number} - ${hymn.title}`;
+            const bookName = hymnBook?.title || 'Hymnals';
+            
+            const message = `Check out ${hymnTitle} from ${bookName} in the Hymnals app!\n\nOpen in App: ${deepLink}`;
+            
+            await Share.share({
+                message,
+                title: hymnTitle,
+            });
+        } catch (error) {
+            console.error('Error sharing link:', error);
         }
     };
 
-    const renderSelectionItem = (key: string, label: string, content: string) => {
+    const handleCopyLink = async () => {
+        try {
+            const deepLink = `hymnalapp://hymn/${hymn.id}`;
+            await Clipboard.setStringAsync(deepLink);
+            Alert.alert('Link Copied', 'Hymn link copied to clipboard.');
+        } catch (error) {
+            console.error('Error copying link:', error);
+            Alert.alert('Error', 'Could not copy link.');
+        }
+    };
+
+    const renderSelectionItem = (key: string, shortLabel: string) => {
         const isSelected = selectedKeys.has(key);
+        
         return (
             <TouchableOpacity
                 style={[
-                    styles.selectionItem,
-                    { backgroundColor: theme.card },
-                    isSelected && { borderColor: theme.primary, backgroundColor: `${theme.primary}10` }
+                    styles.gridItem,
+                    { borderColor: isSelected ? palette.accent : palette.border }
                 ]}
                 onPress={() => toggleSelection(key)}
             >
-                <View style={[
-                    styles.checkbox,
-                    { borderColor: theme.textSecondary },
-                    isSelected && { borderColor: theme.primary, backgroundColor: theme.primary }
-                ]}>
-                    {isSelected && <Ionicons name="checkmark" size={14} color="#FFFFFF" />}
-                </View>
-                <View style={{ flex: 1 }}>
-                    <Text style={[
-                        styles.selectionLabel,
-                        { color: theme.text },
-                        isSelected && { color: theme.primary }
-                    ]}>{label}</Text>
-                    <Text style={[styles.selectionPreview, { color: theme.textSecondary }]} numberOfLines={1}>{content.replace(/\n/g, ' ')}</Text>
-                </View>
+                <LinearGradient
+                    colors={isSelected ? [palette.accent, palette.accentSecondary] : palette.rowGradient}
+                    style={StyleSheet.absoluteFill}
+                    pointerEvents="none"
+                />
+                <Text style={[
+                    styles.gridLabel,
+                    { color: isSelected ? '#FFFFFF' : palette.textMuted },
+                    isSelected && { color: '#FFFFFF' }
+                ]}>{shortLabel.toUpperCase()}</Text>
             </TouchableOpacity>
         );
     };
@@ -248,24 +289,23 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
             presentationStyle="pageSheet"
             onRequestClose={onClose}
         >
-            <View style={[styles.container, { backgroundColor: theme.background }]}>
-                <View style={[styles.header, { borderBottomColor: theme.border }]}>
-                    <Text style={[styles.headerTitle, { color: theme.text }]}>Share Lyrics</Text>
-                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                        <Ionicons name="close-circle" size={30} color={theme.textSecondary} />
+            <MusicBackground variant="player" style={styles.container}>
+                <View style={[styles.header, { borderBottomColor: palette.divider, backgroundColor: palette.glassStrong }]}>
+                    <Text style={[styles.headerTitle, { color: palette.text }]}>Share Lyrics</Text>
+                    <TouchableOpacity onPress={onClose} style={[styles.closeButton, { backgroundColor: palette.glassStrong }]}>
+                        <Ionicons name="close" size={20} color={palette.textMuted} />
                     </TouchableOpacity>
                 </View>
 
                 <ScrollView style={styles.content} contentContainerStyle={{ paddingBottom: 40 }}>
-                    <Text style={[styles.sectionTitle, { color: theme.text }]}>Select Verses / Chorus</Text>
+                    <Text style={[styles.sectionTitle, { color: palette.text }]}>Select Verses / Chorus</Text>
 
-                    <View style={styles.selectionList}>
+                    <View style={styles.selectionGrid}>
                         {hymn.parsedContent.verses.map((verse: any, index: number) => (
                             <React.Fragment key={`verse-${index}`}>
                                 {renderSelectionItem(
                                     `verse-${index}`,
-                                    `Verse ${verse.verse_name}`,
-                                    verse.verse_content
+                                    verse.verse_tag
                                 )}
                             </React.Fragment>
                         ))}
@@ -273,13 +313,12 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                         {hymn.parsedContent.chorus && (
                             renderSelectionItem(
                                 'chorus',
-                                'Chorus',
-                                hymn.parsedContent.chorus
+                                'CH'
                             )
                         )}
                     </View>
 
-                    <Text style={[styles.sectionTitle, { color: theme.text }]}>Preview</Text>
+                    <Text style={[styles.sectionTitle, { color: palette.text }]}>Preview</Text>
 
                     <View style={styles.previewContainer}>
                         {/* Single Preview Card with Active Theme */}
@@ -287,10 +326,10 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                             activeOpacity={1}
                             style={[
                                 styles.previewWrapper,
-                                { borderColor: theme.border }
+                                { borderColor: palette.border }
                             ]}
                         >
-                            <View style={[styles.shareCard, { backgroundColor: activeTheme.bg, width: 280 }]}>
+                            <View style={[styles.shareCard, { backgroundColor: activeTheme.bg, width: CARD_WIDTH }]}>
                                 <View style={styles.cardHeader}>
                                     <View>
                                         <Text style={[styles.cardTitle, { color: activeTheme.text }]} numberOfLines={1}>{hymn.title}</Text>
@@ -332,7 +371,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                                         onPress={() => setSelectedThemeId(t.id)}
                                         style={[
                                             styles.colorCircle,
-                                            { backgroundColor: t.bg, borderColor: isSelected ? theme.primary : theme.border },
+                                            { backgroundColor: t.bg, borderColor: isSelected ? palette.accent : palette.border },
                                             isSelected && styles.colorCircleSelected
                                         ]}
                                     >
@@ -354,7 +393,7 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                         }}
                     >
                         <ViewShot ref={viewShotRef} options={{ format: 'jpg', quality: 0.9 }}>
-                            <View style={[styles.shareCard, { borderRadius: 0, backgroundColor: activeTheme.bg }]}>
+                            <View style={[styles.shareCard, { borderRadius: 0, backgroundColor: activeTheme.bg, width: CARD_WIDTH }]}>
                                 <View style={styles.cardHeader}>
                                     <View>
                                         <Text style={[styles.cardTitle, { color: activeTheme.text }]}>{hymn.title}</Text>
@@ -385,12 +424,93 @@ export const ShareModal: React.FC<Props> = ({ visible, onClose, hymn, hymnBook }
                         </ViewShot>
                     </View>
 
-                    <TouchableOpacity style={[styles.shareButton, { backgroundColor: theme.primary, shadowColor: theme.primary }]} onPress={handleSharePress}>
+                     {/* Format Selector */}
+                    <Text style={[styles.sectionTitle, { color: palette.text, marginTop: 0 }]}>Format</Text>
+                    <View style={[styles.formatSelector, { backgroundColor: palette.glass, borderColor: palette.border }]}>
+                        {/* Animated Selection Pill */}
+                        <Animated.View 
+                            style={[
+                                styles.formatPill, 
+                                { 
+                                    backgroundColor: palette.accent,
+                                    width: TAB_WIDTH,
+                                }, 
+                                animatedPillStyle
+                            ]} 
+                        />
+                        
+                        <TouchableOpacity 
+                            style={styles.formatOption}
+                            onPress={() => handleFormatChange('image')}
+                        >
+                            <Ionicons 
+                                name="image-outline" 
+                                size={18} 
+                                color={shareFormat === 'image' ? '#FFFFFF' : palette.textMuted} 
+                            />
+                            <Text style={[
+                                styles.formatText, 
+                                { color: shareFormat === 'image' ? '#FFFFFF' : palette.textMuted }
+                            ]}>Image</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                            style={styles.formatOption}
+                            onPress={() => handleFormatChange('text')}
+                        >
+                            <Ionicons 
+                                name="document-text-outline" 
+                                size={18} 
+                                color={shareFormat === 'text' ? '#FFFFFF' : palette.textMuted} 
+                            />
+                            <Text style={[
+                                styles.formatText, 
+                                { color: shareFormat === 'text' ? '#FFFFFF' : palette.textMuted }
+                            ]}>Text</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                            style={styles.formatOption}
+                            onPress={() => handleFormatChange('both')}
+                        >
+                            <Ionicons 
+                                name="layers-outline" 
+                                size={18} 
+                                color={shareFormat === 'both' ? '#FFFFFF' : palette.textMuted} 
+                            />
+                            <Text style={[
+                                styles.formatText, 
+                                { color: shareFormat === 'both' ? '#FFFFFF' : palette.textMuted }
+                            ]}>Both</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Link Actions */}
+                    <View style={styles.linkActionsContainer}>
+                        <TouchableOpacity 
+                            style={[styles.linkActionButton, { backgroundColor: palette.glassStrong, borderColor: palette.border }]} 
+                            onPress={handleShareLink}
+                        >
+                            <Ionicons name="link-outline" size={18} color={palette.accent} />
+                            <Text style={[styles.linkActionText, { color: palette.accent }]}>Share Link</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                            style={[styles.linkActionButton, { backgroundColor: palette.glassStrong, borderColor: palette.border }]} 
+                            onPress={handleCopyLink}
+                        >
+                            <Ionicons name="copy-outline" size={18} color={palette.accent} />
+                            <Text style={[styles.linkActionText, { color: palette.accent }]}>Copy Link</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity style={[styles.shareButton, { shadowColor: palette.shadow }]} onPress={handleSharePress}>
+                        <LinearGradient colors={[palette.accent, palette.accentSecondary]} style={StyleSheet.absoluteFill} />
                         <Text style={styles.shareButtonText}>Share</Text>
                         <Ionicons name="share-outline" size={20} color="#FFFFFF" style={{ marginLeft: 8 }} />
                     </TouchableOpacity>
                 </ScrollView>
-            </View>
+            </MusicBackground>
         </Modal>
     );
 };
@@ -408,10 +528,14 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.display,
     },
     closeButton: {
-        padding: 4,
+        width: 32,
+        height: 32,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     content: {
         flex: 1,
@@ -419,35 +543,29 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.m,
         marginTop: SPACING.s,
     },
-    selectionList: {
+    selectionGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
         marginBottom: SPACING.xl,
     },
-    selectionItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: SPACING.m,
-        marginBottom: SPACING.s,
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: 'transparent',
-    },
-    checkbox: {
-        width: 22,
-        height: 22,
-        borderRadius: 6,
-        borderWidth: 2,
-        marginRight: SPACING.m,
+    gridItem: {
+        width: 54,
+        height: 54,
+        borderRadius: 18,
         justifyContent: 'center',
         alignItems: 'center',
+        borderWidth: 1.5,
+        overflow: 'hidden',
     },
-    selectionLabel: {
+    gridLabel: {
         fontSize: 14,
-        fontWeight: 'bold',
-        marginBottom: 2,
+        fontFamily: MUSIC_FONTS.ui,
+        letterSpacing: 0.8,
     },
     selectionPreview: {
         fontSize: 12,
@@ -457,11 +575,15 @@ const styles = StyleSheet.create({
         marginBottom: 40, // Increased from SPACING.xl
     },
     shareCard: {
-        width: 320,
-        backgroundColor: '#1A1A1A', // Dark theme for the card looks premium
+        backgroundColor: '#1A1A1A',
         borderRadius: 24,
         padding: 24,
         alignItems: 'center',
+        // Internal shadow for core content
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 12 },
+        shadowOpacity: 0.2,
+        shadowRadius: 16,
     },
     cardHeader: {
         width: '100%',
@@ -472,14 +594,15 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.display,
         color: '#FFFFFF',
         marginBottom: 4,
-        maxWidth: 220,
+        maxWidth: 260,
     },
     cardSubtitle: {
         fontSize: 12,
         color: '#AAAAAA',
+        fontFamily: MUSIC_FONTS.body,
     },
     logoContainer: {
         // Optional top logo
@@ -498,8 +621,7 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily: FONTS.regular,
-        fontWeight: '500',
+        fontFamily: MUSIC_FONTS.body,
     },
     cardFooter: {
         flexDirection: 'row',
@@ -516,12 +638,12 @@ const styles = StyleSheet.create({
     footerText: {
         color: '#FFFFFF',
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.ui,
         letterSpacing: 1,
         textTransform: 'uppercase',
     },
     shareButton: {
-        borderRadius: 16,
+        borderRadius: 18,
         padding: SPACING.l,
         flexDirection: 'row',
         alignItems: 'center',
@@ -530,11 +652,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 6,
+        overflow: 'hidden',
     },
     shareButtonText: {
         color: '#FFFFFF',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.ui,
     },
     previewScroll: {
         marginBottom: SPACING.xl,
@@ -557,7 +680,7 @@ const styles = StyleSheet.create({
         borderColor: '#FFFFFF',
     },
     colorSelector: {
-        marginBottom: 40, // Increased from SPACING.xl
+        marginBottom: 24, // Reduced from 40
     },
     colorList: {
         paddingHorizontal: SPACING.m,
@@ -591,5 +714,57 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.15,
         shadowRadius: 24,
         elevation: 8,
+    },
+    formatSelector: {
+        flexDirection: 'row',
+        borderRadius: 16,
+        borderWidth: 1,
+        marginBottom: 24,
+        padding: 4,
+        height: 48,
+        position: 'relative',
+    },
+    formatPill: {
+        position: 'absolute',
+        top: 4,
+        bottom: 4,
+        left: 4,
+        borderRadius: 12,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 4,
+    },
+    formatOption: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+        gap: 6,
+    },
+    formatText: {
+        fontFamily: MUSIC_FONTS.ui,
+        fontSize: 14,
+    },
+    linkActionsContainer: {
+        flexDirection: 'row',
+        gap: 12,
+        marginBottom: 16,
+    },
+    linkActionButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 14,
+        borderRadius: 14,
+        borderWidth: 1.5,
+        gap: 8,
+    },
+    linkActionText: {
+        fontSize: 16,
+        fontFamily: MUSIC_FONTS.ui,
     },
 });

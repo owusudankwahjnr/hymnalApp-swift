@@ -6,8 +6,17 @@ import HymnBook from '../db/models/HymnBook';
 export const HymnService = {
     getHymnBooks: () => {
         return database.get<HymnBook>('hymn_books').query(
+            Q.sortBy('is_pinned', Q.desc),
             Q.sortBy('title', Q.asc)
         );
+    },
+
+    togglePin: async (book: HymnBook) => {
+        await database.write(async () => {
+            await book.update((b) => {
+                b.isPinned = !b.isPinned;
+            });
+        });
     },
 
     getHymns: (bookId: string) => {

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch, Alert, Platform, ActionSheetIOS } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Platform, ActionSheetIOS } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { SPACING, FONTS } from '../constants/theme';
+import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import { ReportModal } from '../components/ReportModal';
 import { AdBannerWrapper } from '../components/AdBannerWrapper';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
+import { MusicBackground } from '../components/MusicBackground';
 
 export const SettingsScreen = () => {
     const navigation = useNavigation();
     const { theme, themeMode, setThemeMode } = useSettings();
+    const palette = getMusicPalette(theme.mode);
     const [showReport, setShowReport] = useState(false);
 
     const handleAboutPress = () => {
@@ -65,63 +68,74 @@ export const SettingsScreen = () => {
     };
 
     const renderSectionHeader = (title: string) => (
-        <Text style={[styles.sectionHeader, { color: theme.textSecondary }]}>{title}</Text>
+        <Text style={[styles.sectionHeader, { color: palette.textMuted }]}>{title}</Text>
     );
 
-    const renderItem = (icon: keyof typeof Ionicons.glyphMap, title: string, onPress?: () => void, rightElement?: React.ReactNode) => (
+    const renderItem = (icon: keyof typeof Ionicons.glyphMap, title: string, subtitle?: string, onPress?: () => void, rightElement?: React.ReactNode) => (
         <TouchableOpacity
-            style={[styles.itemContainer, { backgroundColor: theme.card }]}
+            style={[styles.itemContainer, { borderColor: palette.border, backgroundColor: palette.surface }]}
             onPress={onPress}
             disabled={!onPress}
-            activeOpacity={0.7}
+            activeOpacity={0.85}
         >
             <View style={styles.itemLeft}>
-                <View style={[styles.iconContainer, { backgroundColor: `${theme.primary}15` }]}>
-                    <Ionicons name={icon} size={22} color={theme.primary} />
+                <View style={[styles.iconContainer, { borderColor: palette.border }]}>
+                    <Ionicons name={icon} size={20} color={palette.textMuted} />
                 </View>
-                <Text style={[styles.itemTitle, { color: theme.text }]}>{title}</Text>
+                <View style={styles.itemText}>
+                    <Text style={[styles.itemTitle, { color: palette.text }]}>{title}</Text>
+                    {subtitle && <Text style={[styles.itemSubtitle, { color: palette.textMuted }]}>{subtitle}</Text>}
+                </View>
             </View>
-            {rightElement || <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />}
+            {rightElement || <Ionicons name="chevron-forward" size={18} color={palette.textMuted} />}
         </TouchableOpacity>
     );
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top']}>
-            <View style={[styles.header, { backgroundColor: theme.background }]}>
-                <Text style={[styles.headerTitle, { color: theme.text }]}>Settings</Text>
+        <MusicBackground variant="library" style={styles.container}>
+        <SafeAreaView style={styles.safe} edges={['top']}>
+            <View style={[styles.header, { borderBottomColor: palette.divider }]}>
+                <View>
+                    <Text style={[styles.headerTitle, { color: palette.text }]}>Settings</Text>
+                    <Text style={[styles.headerSubtitle, { color: palette.textMuted }]}>Personalize your experience</Text>
+                </View>
+                <View style={[styles.headerBadge, { backgroundColor: palette.surface }]}>
+                    <Ionicons name="sparkles" size={16} color={palette.textMuted} />
+                </View>
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
                 {renderSectionHeader('General')}
-                <View style={[styles.section, { backgroundColor: theme.card }]}>
-                    {renderItem('information-circle-outline', 'About App / Developer', handleAboutPress)}
-                    <View style={[styles.separator, { backgroundColor: theme.border }]} />
-                    {renderItem('heart-circle-outline', 'Acknowledgements', handleAcknowledgementsPress)}
-                    <View style={[styles.separator, { backgroundColor: theme.border }]} />
-                    {renderItem('document-text-outline', 'Terms and Conditions', handleTermsPress)}
+                <View style={[styles.section, { borderColor: palette.border, backgroundColor: palette.surface }]}>
+                    {renderItem('information-circle-outline', 'About App / Developer', 'The vision and team', handleAboutPress)}
+                    <View style={[styles.separator, { backgroundColor: palette.divider }]} />
+                    {renderItem('heart-circle-outline', 'Acknowledgements', 'Thanks and credits', handleAcknowledgementsPress)}
+                    <View style={[styles.separator, { backgroundColor: palette.divider }]} />
+                    {renderItem('document-text-outline', 'Terms and Conditions', 'Legal and usage', handleTermsPress)}
                 </View>
 
                 {renderSectionHeader('Appearance')}
-                <View style={[styles.section, { backgroundColor: theme.card }]}>
+                <View style={[styles.section, { borderColor: palette.border, backgroundColor: palette.surface }]}>
                     {renderItem(
                         'moon-outline',
                         'Appearance',
+                        getThemeLabel(),
                         handleThemeChange,
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ color: theme.textSecondary, marginRight: 8, fontSize: 17 }}>{getThemeLabel()}</Text>
-                            <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
+                            <Text style={[styles.inlineValue, { color: palette.textMuted }]}>{getThemeLabel()}</Text>
+                            <Ionicons name="chevron-forward" size={18} color={palette.textMuted} />
                         </View>
-                    )}
+                )}
                 </View>
 
                 {renderSectionHeader('Support')}
-                <View style={[styles.section, { backgroundColor: theme.card }]}>
-                    {renderItem('bug-outline', 'Report a Bug', handleReportPress)}
+                <View style={[styles.section, { borderColor: palette.border, backgroundColor: palette.surface }]}>
+                    {renderItem('bug-outline', 'Report a Bug', 'Help us improve', handleReportPress)}
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={[styles.footerText, { color: theme.textSecondary }]}>Hymnal App v1.0.0</Text>
-                    <Text style={[styles.footerText, { color: theme.textSecondary }]}>Made with ❤️ by KOD</Text>
+                    <Text style={[styles.footerText, { color: palette.textMuted }]}>Hymnal App v1.0.0</Text>
+                    <Text style={[styles.footerText, { color: palette.textMuted }]}>Made with care by KOD</Text>
                 </View>
             </ScrollView>
 
@@ -131,6 +145,7 @@ export const SettingsScreen = () => {
             />
             <AdBannerWrapper />
         </SafeAreaView>
+        </MusicBackground>
     );
 };
 
@@ -138,31 +153,49 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    safe: {
+        flex: 1,
+    },
     header: {
         paddingHorizontal: SPACING.l,
         paddingVertical: SPACING.m,
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     headerTitle: {
         fontSize: 34,
-        fontWeight: 'bold',
-        fontFamily: FONTS.bold,
+        fontFamily: MUSIC_FONTS.display,
+    },
+    headerSubtitle: {
+        fontSize: 14,
+        fontFamily: MUSIC_FONTS.body,
+        marginTop: 6,
+    },
+    headerBadge: {
+        width: 36,
+        height: 36,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     content: {
         padding: SPACING.m,
     },
     sectionHeader: {
-        fontSize: 13,
-        fontWeight: '600',
+        fontSize: 12,
+        fontFamily: MUSIC_FONTS.ui,
         marginBottom: SPACING.s,
         marginTop: SPACING.m,
         marginLeft: SPACING.s,
-        textTransform: 'uppercase',
-        letterSpacing: 0.5,
+        letterSpacing: 0.2,
     },
     section: {
-        borderRadius: 12,
+        borderRadius: 18,
         overflow: 'hidden',
         marginBottom: SPACING.m,
+        borderWidth: 1,
     },
     itemContainer: {
         flexDirection: 'row',
@@ -175,20 +208,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     iconContainer: {
-        width: 32,
-        height: 32,
-        borderRadius: 6,
+        width: 36,
+        height: 36,
+        borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: SPACING.m,
+        borderWidth: 1,
+    },
+    itemText: {
+        gap: 4,
     },
     itemTitle: {
         fontSize: 17,
-        fontFamily: FONTS.regular,
+        fontFamily: MUSIC_FONTS.ui,
+    },
+    itemSubtitle: {
+        fontSize: 12,
+        fontFamily: MUSIC_FONTS.body,
     },
     separator: {
         height: 1,
         marginLeft: 56, // Align with text start
+    },
+    inlineValue: {
+        marginRight: 8,
+        fontSize: 14,
+        fontFamily: MUSIC_FONTS.body,
     },
     footer: {
         marginTop: SPACING.xl,
@@ -197,5 +243,6 @@ const styles = StyleSheet.create({
     footerText: {
         fontSize: 13,
         marginBottom: 4,
+        fontFamily: MUSIC_FONTS.body,
     },
 });

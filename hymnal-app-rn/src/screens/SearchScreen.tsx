@@ -18,24 +18,45 @@ import { SPACING } from '../constants/theme';
 import { useSettings } from '../context/SettingsContext';
 import HymnBook from '../db/models/HymnBook';
 import { AdBannerWrapper } from '../components/AdBannerWrapper';
+import { NativeAdRow } from '../components/NativeAdRow';
+import { ENABLE_ADS } from '../constants/Ads';
+import { MusicBackground } from '../components/MusicBackground';
+import { getMusicPalette, MUSIC_FONTS } from '../constants/musicTheme';
 
 const LIMIT = 20;
+const AD_FREQUENCY = 10; // Show ad every 10 hymns
+
+const injectAds = (items: any[], startIndex: number) => {
+    if (!ENABLE_ADS) return items;
+
+    const withAds = [];
+    for (let i = 0; i < items.length; i++) {
+        withAds.push(items[i]);
+        // Inject ad if (globalIndex + 1) is divisible by AD_FREQUENCY
+        if ((startIndex + i + 1) % AD_FREQUENCY === 0) {
+            withAds.push({ type: 'ad', id: `ad-${startIndex + i}` });
+        }
+    }
+    return withAds;
+};
+
 
 const CategoryPill = ({ title, isSelected, onPress }: { title: string, isSelected: boolean, onPress: () => void }) => {
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
     return (
         <TouchableOpacity
             style={[
                 styles.pill,
                 isSelected
-                    ? { backgroundColor: theme.primary, borderColor: theme.primary }
-                    : { backgroundColor: 'transparent', borderColor: theme.border }
+                    ? { backgroundColor: palette.surfaceMuted, borderColor: palette.textMuted }
+                    : { backgroundColor: palette.surface, borderColor: palette.border }
             ]}
             onPress={onPress}
         >
             <Text style={[
                 styles.pillText,
-                isSelected ? { color: '#FFFFFF' } : { color: theme.text }
+                isSelected ? { color: palette.text } : { color: palette.text }
             ]}>
                 {title}
             </Text>
@@ -53,6 +74,7 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
     const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
     const searchInputRef = useRef<any>(null);
     const { theme } = useSettings();
+    const palette = getMusicPalette(theme.mode);
 
     const navigation = useNavigation<any>();
 
@@ -91,10 +113,16 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
             const sliced = allMatches.slice(skip, skip + LIMIT);
             const data = sliced;
 
+            // Calculate starting index for this page (or 0 if reset)
+            const currentCount = reset ? 0 : results.filter(r => r.type !== 'ad').length;
+            
+            // Inject ads into the data
+            const dataWithAds = injectAds(data, currentCount);
+
             if (reset) {
-                setResults(data);
+                setResults(dataWithAds);
             } else {
-                setResults(prev => [...prev, ...data]);
+                setResults(prev => [...prev, ...dataWithAds]);
             }
 
             if (data.length < LIMIT) {
@@ -162,12 +190,14 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
     );
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <View style={[styles.header, { backgroundColor: theme.background }]}>
-                <Text style={[styles.title, { color: theme.text }]}>Search</Text>
+        <MusicBackground>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={[styles.title, { color: palette.text }]}>Search</Text>
+                <Text style={[styles.subtitle, { color: palette.textMuted }]}>Find hymns by title, number, or lyrics</Text>
             </View>
 
-            <View style={[styles.stickyHeader, { backgroundColor: theme.background }]}>
+            <View style={styles.stickyHeader}>
                 <View style={styles.searchContainer}>
                     <SearchBar
                         ref={searchInputRef}
@@ -184,14 +214,19 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
                             isSelected={selectedBookId === null}
                             onPress={() => setSelectedBookId(null)}
                         />
-                        {hymnBooks.map(book => (
-                            <CategoryPill
-                                key={book.id}
-                                title={book.title}
-                                isSelected={selectedBookId === book.id}
-                                onPress={() => setSelectedBookId(book.id)}
-                            />
-                        ))}
+                        {[...hymnBooks]
+                            .sort((a: any, b: any) => {
+                                if (a.isPinned === b.isPinned) return a.title.localeCompare(b.title);
+                                return a.isPinned ? -1 : 1;
+                            })
+                            .map(book => (
+                                <CategoryPill
+                                    key={book.id}
+                                    title={book.title}
+                                    isSelected={selectedBookId === book.id}
+                                    onPress={() => setSelectedBookId(book.id)}
+                                />
+                            ))}
                     </ScrollView>
                 </View>
             </View>
@@ -203,6 +238,11 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
                     data={results}
                     keyExtractor={(item, index) => `${item.id}-${index}`}
                     renderItem={({ item }) => {
+                        // Render native ad if item is an ad
+                        if (item.type === 'ad') {
+                            return <NativeAdRow />;
+                        }
+
                         let matchType: 'verse' | 'chorus' | undefined;
                         if (isDeepSearch) {
                             matchType = getHymnMatchType(item, query);
@@ -227,7 +267,7 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
                     }
                     ListEmptyComponent={
                         <View style={styles.empty}>
-                            <Text style={[styles.emptyText, { color: theme.textSecondary }]}>No results found</Text>
+                            <Text style={[styles.emptyText, { color: palette.textMuted }]}>No results found</Text>
                         </View>
                     }
                     onScroll={handleScroll}
@@ -243,6 +283,7 @@ const SearchScreenComponent = ({ hymnBooks }: { hymnBooks: HymnBook[] }) => {
 
             <AdBannerWrapper />
         </View>
+        </MusicBackground>
     );
 };
 
@@ -257,7 +298,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 34,
-        fontWeight: 'bold',
+        fontFamily: MUSIC_FONTS.display,
+    },
+    subtitle: {
+        fontSize: 14,
+        fontFamily: MUSIC_FONTS.body,
+        marginTop: 6,
     },
     stickyHeader: {
         zIndex: 1,
@@ -277,12 +323,12 @@ const styles = StyleSheet.create({
     pill: {
         paddingHorizontal: 16,
         paddingVertical: 8,
-        borderRadius: 20,
+        borderRadius: 18,
         borderWidth: 1,
     },
     pillText: {
         fontSize: 14,
-        fontWeight: '600',
+        fontFamily: MUSIC_FONTS.ui,
     },
     list: {
         paddingBottom: 100,
@@ -304,6 +350,7 @@ const styles = StyleSheet.create({
     },
     emptyText: {
         fontSize: 16,
+        fontFamily: MUSIC_FONTS.body,
     },
 });
 

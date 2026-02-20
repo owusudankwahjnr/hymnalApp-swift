@@ -9,3 +9,4 @@ export * from './FloatingSearchButton';
 export * from './VariantRow';
 export * from './ReportModal';
 export * from './ShareModal';
+export * from './MusicBackground';
